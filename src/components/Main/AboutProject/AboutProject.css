@@ -3,8 +3,8 @@
 }
 
 .about-project__title {
-  margin: 111px 0 0 0;
-  padding: 0;
+  margin: 0;
+  padding: 111px 0 0 0;
   max-width: 600px;
   position: sticky;
   left: 70px;
