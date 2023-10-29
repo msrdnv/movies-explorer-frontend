@@ -40,8 +40,8 @@
 .promo__about-project-button {
   margin: 110px 0 0 0;
   padding: 0;
-  width: 129px;
-  height: 36px;
+  min-width: 129px;
+  min-height: 36px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 3px;
   background-color: #073042;
@@ -56,6 +56,6 @@
   margin: 149px 0 0 0;
   position: sticky;
   right: 70px;
-  width: 310px;
-  height: 304px;
+  min-width: 310px;
+  max-height: 304px;
 }
