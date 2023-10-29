@@ -4,9 +4,13 @@
   min-height: 74px;
 }
 
-.header__logo {
+.header__nav-logo {
+  display: flex;
   position: sticky;
   left: 70px;
+}
+
+.header__logo {
   width: 38px;
   aspect-ratio: 1/1;
   object-fit: contain;

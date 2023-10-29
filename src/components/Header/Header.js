@@ -7,7 +7,9 @@ import logo from '../../images/logo.svg'
 export default function Header() {
   return (
     <div className='header'>
-      <img className='header__logo' src={logo} alt='Логотип сайта'/>
+      <Link className='header__nav-logo' to='/'>
+        <img className='header__logo' src={logo} alt='Логотип сайта'/>
+      </Link>
       <nav className='header__nav-menu'>
         <Link className='header__nav-link' to='/signup'>Регистрация</Link>
         <Link className='header__nav-link' to='/signin'>
