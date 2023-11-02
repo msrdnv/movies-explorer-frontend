@@ -8,13 +8,16 @@ import Profile from '../Profile/Profile'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import NotFoundPage from '../NotFoundPage/NotFoundPage'
+import { AppContext } from '../../contexts/AppContext'
 
 export default function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
   // const navigate = useNavigate();
 
   return (
-    <>
+    <AppContext.Provider value={{isLoggedIn}}>
       <Routes>
         <Route path="/" element={<Main/>}></Route>
         <Route path="/movies" element={<Movies/>}></Route>
@@ -24,6 +27,6 @@ export default function App() {
         <Route path="/signup" element={<Register/>} />
         <Route path="*" element={<NotFoundPage/>} />
       </Routes>
-    </>
+    </AppContext.Provider>
   );
 };
