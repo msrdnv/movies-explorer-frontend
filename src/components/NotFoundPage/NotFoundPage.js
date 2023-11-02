@@ -9,7 +9,7 @@ export default function NotFoundPage() {
   return (
     <div className='not-found-page'>
       <h2 className='not-found-page__title'>404</h2>
-      <p className='not-found-page__subtitle'>Страница не найдена</p>
+      <p className='not-found-page__caption'>Страница не найдена</p>
       <Link className='not-found-page__return-link' onClick={navigate(-1)}>Назад</Link>
     </div>
   );
