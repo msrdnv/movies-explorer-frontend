@@ -72,7 +72,7 @@
 }
 
 .about-me__caption {
-  margin: 19px 0 0 0;
+  margin: 18px 0 0 0;
   padding: 0;
   max-width: 600px;
   color: #FFF;
@@ -109,8 +109,18 @@
   }
 }
 
+.about-me__text-line-break {
+  display: none;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-me__text-line-break {
+    display: inline;
+  }
+}
+
 .about-me__git-link {
-  margin: 99px 0 0 0;
+  margin: 100px 0 0 0;
   padding: 0;
   text-decoration: none;
   color: #FFF;
