@@ -12,11 +12,11 @@ export default function Login() {
         </Link>
         <h2 className='login__title'>Рады видеть!</h2>
         <form className='login__form'>
-          <label className='login__label'>E-mail</label>
-          <input className='login__input' type='email' name='email' required/>
+          <label className='login__label' htmlFor='login-email-input'>E-mail</label>
+          <input className='login__input' type='email' name='login-email-input' id='login-email-input' required/>
           <span className='login__error'></span>
-          <label className='login__label'>Пароль</label>
-          <input className='login__input' type='password' name='password' required/>
+          <label className='login__label' htmlFor='login-password-input'>Пароль</label>
+          <input className='login__input' type='password' name='login-password-input' id='login-password-input' required/>
           <span className='login__error'>Что-то пошло не так...</span>
           <button className='login__submit-button' type='submit'>Войти</button>
         </form>

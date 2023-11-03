@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import { Routes, Route, /* useNavigate */} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Main from '../Main/Main'
 import Movies from '../Movies/Movies'
 import SavedMovies from '../SavedMovies/SavedMovies'
@@ -12,9 +12,7 @@ import { AppContext } from '../../contexts/AppContext'
 
 export default function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-
-  // const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   return (
     <AppContext.Provider value={{isLoggedIn}}>

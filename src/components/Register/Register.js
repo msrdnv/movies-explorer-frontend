@@ -12,14 +12,14 @@ export default function Register() {
         </Link>
         <h2 className='register__title'>Добро пожаловать!</h2>
         <form className='register__form'>
-          <label className='register__label'>Имя</label>
-          <input className='register__input' type='text' name='name' required/>
+          <label className='register__label' htmlFor='register-name-input'>Имя</label>
+          <input className='register__input' type='text' name='register-name-input' id='register-name-input' required/>
           <span className='register__error'></span>
-          <label className='register__label'>E-mail</label>
-          <input className='register__input' type='email' name='email' required/>
+          <label className='register__label' htmlFor='register-email-input'>E-mail</label>
+          <input className='register__input' type='email' name='register-email-input' id='register-email-input' required/>
           <span className='register__error'></span>
-          <label className='register__label'>Пароль</label>
-          <input className='register__input' type='password' name='password' required/>
+          <label className='register__label' htmlFor='register-password-input'>Пароль</label>
+          <input className='register__input' type='password' name='register-password-input' id='register-password-input' required/>
           <span className='register__error'>Что-то пошло не так...</span>
           <button className='register__submit-button' type='submit'>Зарегистрироваться</button>
         </form>

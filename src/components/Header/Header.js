@@ -32,7 +32,8 @@ export default function Header() {
           <Link className='header__nav-link' to='/signin'>
             <button className='header__nav-button'>Войти</button>
           </Link>
-        </nav>)}
+        </nav>)
+      }
     </div>
   );
 }
