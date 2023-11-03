@@ -2,6 +2,12 @@
   min-height: 555px;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-me {
+    min-height: 515px;
+  }
+}
+
 .about-me__title {
   margin: 0;
   padding: 110px 0 0 0;
@@ -15,6 +21,13 @@
   letter-spacing: -0.88px;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-me__title {
+    padding: 92px 0 0 0;
+    left: 50px;
+  }
+}
+
 .about-me__main-container {
   margin: 23px 70px 0 70px;
   padding: 0;
@@ -24,6 +37,13 @@
   column-gap: 270px;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-me__main-container {
+    margin: 22px 50px 0 50px;
+    column-gap: 49px;
+  }
+}
+
 .about-me__info-container {
   margin: 0;
   padding: 0;
@@ -31,7 +51,7 @@
   flex-direction: column;
 }
 
-.about-me__name {
+.about-me__subtitle {
   margin: 66px 0 0 0;
   padding: 0;
   max-width: 600px;
@@ -42,24 +62,51 @@
   letter-spacing: -2px;
 }
 
-.about-me__about-caption {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-me__subtitle {
+    max-width: 348px;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -1.6px;
+  }
+}
+
+.about-me__caption {
   margin: 19px 0 0 0;
   padding: 0;
   max-width: 600px;
   color: #FFF;
   font-size: 18px;
   font-weight: 500;
-  line-height: 1.11;
+  line-height: 20px;
 }
 
-.about-me__about-text {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-me__caption {
+    margin: 16px 0 0 0;
+    max-width: 348px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
+.about-me__text {
   margin: 26px 0 0 0;
   padding: 0;
   max-width: 600px;
   color: #FFF;
   font-size: 14px;
   font-weight: 400;
-  line-height: 1.57;
+  line-height: 22px;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-me__text {
+    margin: 20px 0 0 0;
+    max-width: 364px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
 }
 
 .about-me__git-link {
@@ -72,9 +119,22 @@
   line-height: 1.21;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-me__git-link {
+    margin: 88px 0 0 0;
+  }
+}
+
 .about-me__photo {
   margin: 66px 0 0 0;
   padding: 0;
-  max-width: 270px;
-  max-height: 327px;
+  width: 270px;
+  height: 327px;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-me__photo {
+    width: 255px;
+    height: 307px;
+  }
 }
