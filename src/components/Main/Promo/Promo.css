@@ -1,9 +1,18 @@
 .promo {
-  margin-top: -74px;
+  margin-top: -74.5px;
   min-height: 648px;
   background-color: #073042;
   display: flex;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .promo {
+    min-height: 924px;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-end;
+  }
 }
 
 .promo__text-container {
@@ -16,14 +25,35 @@
   row-gap: 36px;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .promo__text-container {
+    align-items: center;
+    margin: 49px 0 0 0;
+    position: static;
+    row-gap: 22px;
+  }
+}
+
 .promo__title {
   margin: 0;
   padding: 0;
   color: #FFF;
   max-width: 640px;
+  min-height: 174px;
   font-size: 50px;
   font-weight: 400;
   line-height: 1.16;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .promo__title {
+    max-width: 680px;
+    min-height: 100px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 1.25;
+  }
 }
 
 .promo__caption {
@@ -37,8 +67,15 @@
   opacity: 0.5;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .promo__caption {
+    max-width: 260px;
+    text-align: center;
+  }
+}
+
 .promo__about-project-button {
-  margin: 110px 0 0 0;
+  margin: 111px 0 0 0;
   padding: 0;
   min-width: 129px;
   min-height: 36px;
@@ -49,7 +86,13 @@
   color: #FFF;
   font-weight: 500;
   font-size: 12px;
-  line-height: 1.33;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .promo__about-project-button {
+    margin: 70px 0 0 0;
+  }
 }
 
 .promo__logo {
@@ -58,4 +101,11 @@
   right: 70px;
   min-width: 310px;
   max-height: 304px;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .promo__logo {
+    margin: 214px 0 0 0;
+    position: static;
+  }
 }

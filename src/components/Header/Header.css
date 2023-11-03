@@ -10,6 +10,12 @@
   left: 70px;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .header__nav-logo {
+    left: 30px;
+  }
+}
+
 .header__logo {
   width: 38px;
   aspect-ratio: 1/1;
@@ -24,6 +30,13 @@
   display: flex;
   column-gap: 30px;
   align-items: center;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .header__nav-menu {
+    position: sticky;
+    right: 30px;
+  }
 }
 
 .header__nav-menu_state-logged {
