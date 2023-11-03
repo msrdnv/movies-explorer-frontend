@@ -31,7 +31,7 @@
 }
 
 .techs__text-container {
-  margin: 23px 0 0 0;
+  margin: 23px 70px 0 70px;
   padding: 0;
   border-top: 1px solid #DADADA;
   display: flex;
@@ -43,7 +43,6 @@
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .techs__text-container {
     margin: 22px 50px 0 50px;
-    max-width: 668px;
     row-gap: 22px;
   }
 }

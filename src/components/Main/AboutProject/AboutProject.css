@@ -79,6 +79,7 @@
   margin: 110px 70px 0 70px;
   padding: 0;
   display: grid;
+  justify-content: center;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 36px 18px;
   row-gap: 14px;
