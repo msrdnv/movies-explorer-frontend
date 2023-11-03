@@ -11,6 +11,13 @@
   'button button';
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .movies-card {
+    min-width: 342px;
+    min-height: 309px;
+  }
+}
+
 .movies-card__name {
   margin: 17.5px 0 18.5px 18px;
   padding: 0;
@@ -40,7 +47,13 @@
   max-height: 200px;
   grid-area: image;
   justify-self: center;
+}
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .movies-card__image {
+    max-width: 342px;
+    max-height: 190px;
+  }
 }
 
 .movies-card__button {

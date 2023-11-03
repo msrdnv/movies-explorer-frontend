@@ -5,22 +5,40 @@
   align-items: center;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .search-form__form {
+    min-height: 250px;
+  }
+}
+
 .search-form__form {
-  margin: 0;
+  margin: 0 auto 0 auto;
   padding: 0;
-  min-width: 1140px;
+  min-width: calc(100% - 140px);
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .search-form__form {
+    min-width: calc(100% - 60px);
+  }
 }
 
 .search-form__input-container {
-  margin: 70px 0 26px 0;
+  margin: 70px auto 26px auto;
   padding: 0;
-  min-width: 1137px;
+  min-width: calc(100% - 143px);
   min-height: 69px;
   border-radius: 8px;
   border: 1.5px solid rgba(170, 170, 170, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .search-form__input-container {
+    min-width: calc(100% - 60px);
+  }
 }
 
 .search-form__input {
@@ -57,6 +75,12 @@
   display: flex;
   column-gap: 14px;
   border-bottom: 1px solid rgba(170, 170, 170, 0.2);
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .search-form__checkbox-container {
+    min-height: 71px;
+  }
 }
 
 .search-form__checkbox-label {
