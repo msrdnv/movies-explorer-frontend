@@ -71,7 +71,6 @@
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .about-project__info-caption {
     font-size: 12px;
-    font-weight: 400;
     line-height: 1.5;
   }
 }
