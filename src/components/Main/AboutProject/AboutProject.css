@@ -2,6 +2,12 @@
   min-height: 609px;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-project {
+    min-height: 585px;
+  }
+}
+
 .about-project__title {
   margin: 0;
   padding: 111px 0 0 0;
@@ -15,18 +21,35 @@
   letter-spacing: -0.88px;
 }
 
-.about-project__table {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-project__title {
+    padding: 91px 0 0 0;
+    left: 50px;
+  }
+}
+
+.about-project__info {
   margin: 23px 70px 0 70px;
-  padding-top: 70px;
+  padding: 70px 0 0 0;
   border-top: 1px solid #DADADA;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 24px 40px;
   row-gap: 26px;
   column-gap: 40px;
+  list-style: none;
 }
 
-.about-project__table-title {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-project__info {
+    margin: 23px 50px 0 50px;
+    grid-template-rows: 48px 54px;
+    row-gap: 22px;
+    column-gap: 30px;
+  }
+}
+
+.about-project__info-title {
   margin: 0;
   padding: 0;
   font-size: 20px;
@@ -36,7 +59,7 @@
   color: #FFF;
 }
 
-.about-project__table-caption {
+.about-project__info-caption {
   margin: 0;
   padding: 0;
   font-size: 14px;
@@ -45,15 +68,32 @@
   color: #FFF;
 }
 
-.about-project__scheme {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-project__info-caption {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+}
+
+.about-project__graphic-data {
   margin: 110px 70px 0 70px;
+  padding: 0;
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 36px 18px;
   row-gap: 14px;
+  list-style: none;
 }
 
-.about-project__scheme-element {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .about-project__graphic-data {
+    margin: 93px 50px 0 50px;
+    grid-template-columns: 140px 528px;
+  }
+}
+
+.about-project__graphic-data-element {
   padding: 0;
   margin: 0;
   display: flex;
@@ -63,18 +103,20 @@
   min-height: 100%;
   font-size: 14px;
   font-weight: 500;
-  line-height: 1.21;
+  line-height: 17px;
   color:#8B8B8B;
 }
 
-.about-project__scheme-element_green {
+.about-project__graphic-data-element_green {
   background-color: #3DDC84;
   color: #000;
   font-weight: 400;
+  line-height: 1.21;
 }
 
-.about-project__scheme-element_grey {
+.about-project__graphic-data-element_grey {
   background-color: #303030;
   color: #FFF;
   font-weight: 400;
+  line-height: 1.21;
 }

@@ -34,7 +34,6 @@
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .header__nav-menu {
-    position: sticky;
     right: 30px;
   }
 }
