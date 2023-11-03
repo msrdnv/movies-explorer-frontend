@@ -3,9 +3,21 @@
   display: flex;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .login {
+    min-height: 1024px;
+  }
+}
+
 .login__container {
   margin: 0 auto 0 auto;
   padding: 70px 0 0 0;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .login__container {
+    padding: 232px 0 0 0;
+  }
 }
 
 .login__title {

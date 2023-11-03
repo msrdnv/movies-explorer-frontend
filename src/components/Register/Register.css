@@ -14,6 +14,12 @@
   padding: 70px 0 0 0;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .register__container {
+    padding: 232px 0 0 0;
+  }
+}
+
 .register__title {
   margin: 36px 0 40px 0;
   padding: 0;
