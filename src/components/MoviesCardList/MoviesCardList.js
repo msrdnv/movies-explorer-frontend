@@ -19,7 +19,7 @@ export default function MoviesCardList() {
           </div>
         ))}
       </div>
-      {currentCards.length >= 6
+      {currentCards.length >= 5
       ? (<button className='movies-card-list__more-button' type='button'>Ещё</button>)
       : (<div className='movies-card-list__devider'/>)
       }
