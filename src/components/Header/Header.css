@@ -145,8 +145,9 @@
   position: sticky;
   right: 30px;
   background: url(../../images/burger-menu.svg) no-repeat;
+  background-size: 44px 44px;
+  height: 44px;
   width: 44px;
-  aspect-ratio: 1/1;
   border: none;
   outline: none;
   z-index: 3;
@@ -160,7 +161,12 @@
 
 @media screen and (max-width: 634px) {
   .header__burger-menu-button {
-    right: 14px;
+    margin: 17.5px 0 0 0;
+    background-size: 34px 39.5px;
+    display: flex;
+    right: 17px;
+    height: 40px;
+    width: 34px;
   }
 }
 

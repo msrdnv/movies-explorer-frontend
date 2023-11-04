@@ -12,7 +12,7 @@ import { AppContext } from '../../contexts/AppContext'
 
 export default function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
   return (
     <AppContext.Provider value={{isLoggedIn}}>
