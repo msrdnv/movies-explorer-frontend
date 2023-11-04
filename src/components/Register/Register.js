@@ -23,7 +23,7 @@ export default function Register() {
           <span className='register__error'>Что-то пошло не так...</span>
           <button className='register__submit-button' type='submit'>Зарегистрироваться</button>
         </form>
-        <p className='register__caption'>Уже зарегистрированы? <Link to='/signin' className='register__caption-link'>Войти</Link></p>
+        <p className='register__caption'>Уже зарегистрированы?&nbsp;<Link to='/signin' className='register__caption-link'>&nbsp;Войти</Link></p>
       </div>
     </div>
   );

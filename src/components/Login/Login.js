@@ -20,7 +20,7 @@ export default function Login() {
           <span className='login__error'>Что-то пошло не так...</span>
           <button className='login__submit-button' type='submit'>Войти</button>
         </form>
-        <p className='login__caption'>Ещё не зарегистрированы? <Link to='/signup' className='login__caption-link'>Регистрация</Link></p>
+        <p className='login__caption'>Ещё не зарегистрированы?&nbsp;<Link to='/signup' className='login__caption-link'>&nbsp;Регистрация</Link></p>
       </div>
     </div>
   );
