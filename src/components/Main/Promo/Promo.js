@@ -8,7 +8,7 @@ export default function Promo() {
       <div className='promo__text-container'>
         <h1 className='promo__title'>Учебный проект студента факультета<br className='promo__title-line-break'/> Веб-разработки.</h1>
         <p className='promo__caption'>Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
-        <a href='#about-project'>
+        <a className='promo__nav-link' href='#about-project'>
           <button className='promo__about-project-button'>Узнать больше</button>
         </a>
       </div>

@@ -17,7 +17,6 @@
 @media screen and (max-width: 634px) {
   .nav-tab {
     display: block;
-    position: absolute;
     min-width: 100%;
     min-height: 780px;
   }
@@ -67,6 +66,10 @@
   text-decoration: none;
 }
 
+.nav-tab__link:hover {
+  opacity: 0.7;
+}
+
 @media screen and (max-width: 634px) {
   .nav-tab__link {
     max-width: 300px;
@@ -83,6 +86,11 @@
   }
 }
 
+.nav-tab__link_active {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
 .nav-tab__account-button {
   margin: 0;
   padding: 0;
@@ -97,6 +105,7 @@
   display: flex;
   align-items: center;
   column-gap: 14px;
+  cursor: pointer;
 }
 
 .nav-tab__account-button-logo {

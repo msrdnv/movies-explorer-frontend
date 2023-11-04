@@ -112,6 +112,10 @@
   letter-spacing: -1.2px;
 }
 
+.portfolio__nav-link:hover {
+  opacity: 0.7;
+}
+
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .portfolio__nav-link {
     max-width: 29px;

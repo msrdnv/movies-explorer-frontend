@@ -7,7 +7,6 @@ export default function MoviesCard({card}) {
   const location = useLocation();
   const [isSaved, setIsSaved] = React.useState(false);
 
-
   return (
     <>
       <h2 className='movies-card__name'>{card.name}</h2>

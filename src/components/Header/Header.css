@@ -10,6 +10,10 @@
   left: 70px;
 }
 
+.header__nav-logo:hover {
+  opacity: 0.8;
+}
+
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .header__nav-logo {
     left: 30px;
@@ -78,6 +82,10 @@
   line-height: 16px;
 }
 
+.header__nav-link:hover {
+  opacity: 0.7;
+}
+
 @media screen and (max-width: 634px) {
   .header__nav-link {
     font-size: 10px;
@@ -90,6 +98,10 @@
   line-height: 18px;
 }
 
+.header__nav-link_active {
+  font-weight: 500;
+}
+
 .header__nav-button {
   margin: 0;
   padding: 0;
@@ -99,6 +111,11 @@
   border-radius: 3px;
   background-color: #3DDC84;
   color: #000;
+  cursor: pointer;
+}
+
+.header__nav-button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 634px) {
@@ -122,6 +139,7 @@
   display: flex;
   align-items: center;
   column-gap: 14px;
+  cursor: pointer;
 }
 
 .header__nav-button-logo-container {
@@ -151,6 +169,11 @@
   border: none;
   outline: none;
   z-index: 3;
+  cursor: pointer;
+}
+
+.header__burger-menu-button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {

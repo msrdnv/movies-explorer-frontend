@@ -108,6 +108,10 @@
   }
 }
 
+.promo__nav-link {
+  cursor: default;
+}
+
 .promo__about-project-button {
   margin: 111px 0 0 0;
   padding: 0;
@@ -121,6 +125,11 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
+  cursor: pointer;
+}
+
+.promo__about-project-button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {

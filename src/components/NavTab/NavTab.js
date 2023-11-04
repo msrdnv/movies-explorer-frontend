@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import './NavTab.css'
 import icon from '../../images/account-icon.svg'
 
@@ -9,9 +9,9 @@ export default function NavTab() {
     <div className='nav-tab__popup'>
       <nav className='nav-tab'>
         <div className='nav-tab__menu-container'>
-          <Link className='nav-tab__link' to='/'>Главная</Link>
-          <Link className='nav-tab__link' to='/movies'>Фильмы</Link>
-          <Link className='nav-tab__link' to='/saved-movies'>Сохранённые фильмы</Link>
+          <NavLink className={({isActive}) => `nav-tab__link ${isActive ? 'nav-tab__link_active' : ''}`} to='/'>Главная</NavLink>
+          <NavLink className={({isActive}) => `nav-tab__link ${isActive ? 'nav-tab__link_active' : ''}`} to='/movies'>Фильмы</NavLink>
+          <NavLink className={({isActive}) => `nav-tab__link ${isActive ? 'nav-tab__link_active' : ''}`} to='/saved-movies'>Сохранённые фильмы</NavLink>
           <Link className='nav-tab__link' to='/profile'>
             <button className='nav-tab__account-button'>Аккаунт
               <div className='nav-tab__account-button-logo'>

@@ -65,6 +65,10 @@
   text-decoration: none;
 }
 
+.not-found-page__return-link:hover {
+  opacity: 0.7;
+}
+
 @media screen and (max-width: 634px) {
   .not-found-page__return-link {
     margin: 284px 0 0 0;

@@ -53,6 +53,11 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 1.21;
+  cursor: pointer;
+}
+
+.movies-card-list__more-button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {

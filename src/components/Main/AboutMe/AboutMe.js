@@ -1,6 +1,6 @@
 import React from 'react'
 import './AboutMe.css'
-import photo from '../../../images/photo.svg'
+import photo from '../../../images/photo.png'
 
 export default function AboutMe() {
   return (

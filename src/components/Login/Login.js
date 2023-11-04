@@ -7,8 +7,8 @@ export default function Login() {
   return (
     <div className='login'>
       <div className='login__container'>
-        <Link to='/'>
-          <img className='header__logo' src={logo} alt='Логотип сайта'/>
+        <Link className='login__nav-logo' to='/'>
+          <img className='login__logo' src={logo} alt='Логотип сайта'/>
         </Link>
         <h2 className='login__title'>Рады видеть!</h2>
         <form className='login__form'>
@@ -17,7 +17,7 @@ export default function Login() {
           <span className='login__error'></span>
           <label className='login__label' htmlFor='login-password-input'>Пароль</label>
           <input className='login__input' type='password' name='login-password-input' id='login-password-input' required/>
-          <span className='login__error'>Что-то пошло не так...</span>
+          <span className='login__error'></span>
           <button className='login__submit-button' type='submit'>Войти</button>
         </form>
         <p className='login__caption'>Ещё не зарегистрированы?&nbsp;<Link to='/signup' className='login__caption-link'>&nbsp;Регистрация</Link></p>

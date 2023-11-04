@@ -177,12 +177,17 @@
 
 .about-me__git-link {
   margin: 100px 0 0 0;
+  max-width: max-content;
   padding: 0;
   text-decoration: none;
   color: #FFF;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.21;
+}
+
+.about-me__git-link:hover {
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {

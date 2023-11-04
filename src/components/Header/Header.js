@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import './Header.css'
 import logo from '../../images/logo.svg'
 import icon from '../../images/account-icon.svg'
@@ -26,8 +26,8 @@ export default function Header() {
       {app.isLoggedIn
       ? (<>
           <nav className='header__nav-menu header__nav-menu_logged'>
-            <Link className='header__nav-link header__nav-link_logged' to='/movies'>Фильмы</Link>
-            <Link className='header__nav-link header__nav-link_logged' to='/saved-movies'>Сохранённые фильмы</Link>
+            <NavLink className={({isActive}) => `header__nav-link header__nav-link_logged ${isActive ? 'header__nav-link_active' : ''}`} to='/movies'>Фильмы</NavLink>
+            <NavLink className={({isActive}) => `header__nav-link header__nav-link_logged ${isActive ? 'header__nav-link_active' : ''}`} to='/saved-movies'>Сохранённые фильмы</NavLink>
             <Link className='header__nav-link header__nav-link_logged' to='/profile'>
               <button className='header__nav-button_logged'>Аккаунт
                 <div className={location.pathname==='/' ? 'header__nav-button-logo-container' : 'header__nav-button-logo-container header__nav-button-logo-container_theme-dark'}>
