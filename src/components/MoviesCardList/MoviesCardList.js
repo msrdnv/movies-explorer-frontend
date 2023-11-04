@@ -12,13 +12,15 @@ export default function MoviesCardList() {
 
   return (
     <div className='movies-card-list'>
-      <div className='movies-card-list__container'>
+      {(cards && cards.length > 0)
+      ? (<div className='movies-card-list__container'>
         {currentCards.map((card) => (
           <div key={card._id} className='movies-card'>
             <MoviesCard card={card}/>
-          </div>
-        ))}
-      </div>
+          </div>))}
+        </div>)
+      : (<span className='movies-card-list__null-result'>Нет результатов поиска!</span>)
+      }
       {currentCards.length >= 5
       ? (<button className='movies-card-list__more-button' type='button'>Ещё</button>)
       : (<div className='movies-card-list__devider'/>)

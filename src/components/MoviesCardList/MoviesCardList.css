@@ -40,6 +40,16 @@
   }
 }
 
+.movies-card-list__null-result {
+  margin: auto;
+  padding: 0;
+  max-width: max-content;
+  color: #FFF;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.21;
+}
+
 .movies-card-list__more-button {
   margin: 30px 0 80.5px 0;
   padding: 0;
