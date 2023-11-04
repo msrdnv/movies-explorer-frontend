@@ -11,6 +11,12 @@
   }
 }
 
+@media screen and (max-width: 634px) {
+  .not-found-page {
+    min-height: 780px;
+  }
+}
+
 .not-found-page__title {
   margin: 0;
   padding: 246px 0 0 0;
@@ -26,6 +32,13 @@
   }
 }
 
+@media screen and (max-width: 634px) {
+  .not-found-page__title {
+    padding: 330px 0 0 0;
+    font-size: 80px;
+  }
+}
+
 .not-found-page__caption {
   margin: 0;
   padding: 4px 0 0 0;
@@ -33,6 +46,13 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 1.21;
+}
+
+@media screen and (max-width: 634px) {
+  .not-found-page__caption {
+    font-size: 12px;
+    padding: 10px 0 0 0;
+  }
 }
 
 .not-found-page__return-link {
@@ -43,4 +63,11 @@
   font-weight: 400;
   line-height: 1.21;
   text-decoration: none;
+}
+
+@media screen and (max-width: 634px) {
+  .not-found-page__return-link {
+    margin: 284px 0 0 0;
+    font-size: 12px;
+  }
 }
