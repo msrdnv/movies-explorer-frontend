@@ -171,9 +171,28 @@
 }
 
 .header__burger-menu-button_active {
+  display: none;
   margin: 22px 0 0 0;
   right: 22px;
   background: url(../../images/close-icon.svg) no-repeat;
+  background-size: 32px 32px;
+  height: 32px;
   width: 32px;
-  aspect-ratio: 1/1;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .header__burger-menu-button_active {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .header__burger-menu-button_active {
+    display: flex;
+    margin: 13.5px 0 0 0;
+    right: 13.5px;
+    background-size: 31px 31px;
+    height: 31px;
+    width: 31px;
+  }
 }

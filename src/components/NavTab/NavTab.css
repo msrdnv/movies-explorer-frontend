@@ -1,4 +1,5 @@
 .nav-tab {
+  display: none;
   position: absolute;
   right: 0;
   min-width: 520px;
@@ -7,7 +8,23 @@
   z-index: 2;
 }
 
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .nav-tab {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .nav-tab {
+    display: block;
+    position: absolute;
+    min-width: 100%;
+    min-height: 780px;
+  }
+}
+
 .nav-tab__popup {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -17,6 +34,12 @@
   height: 100%;
 }
 
+@media screen and (max-width: 1080px) {
+  .nav-tab__popup {
+    display: block;
+  }
+}
+
 .nav-tab__menu-container {
   margin: 160px 0 0 0;
   padding: 0;
@@ -24,6 +47,13 @@
   flex-direction: column;
   row-gap: 28px;
   align-items: center;
+}
+
+@media screen and (max-width: 634px) {
+  .nav-tab__menu-container {
+    margin: 145px 0 0 0;
+    row-gap: 24px;
+  }
 }
 
 .nav-tab__link {
@@ -37,8 +67,20 @@
   text-decoration: none;
 }
 
+@media screen and (max-width: 634px) {
+  .nav-tab__link {
+    max-width: 300px;
+  }
+}
+
 .nav-tab__link:last-of-type {
   margin: 592px 0 0 0;
+}
+
+@media screen and (max-width: 634px) {
+  .nav-tab__link:last-of-type {
+    margin: 419.5px 0 0 0;
+  }
 }
 
 .nav-tab__account-button {
