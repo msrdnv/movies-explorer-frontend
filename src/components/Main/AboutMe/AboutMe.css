@@ -8,16 +8,16 @@
   }
 }
 
-@media screen and (max-width: 624px) {
+@media screen and (max-width: 634px) {
   .about-me {
-    min-height: 817px;
+    min-height: 835px;
   }
 }
 
 .about-me__title {
   margin: 0;
   padding: 110px 0 0 0;
-  max-width: 600px;
+  max-width: calc(100% - 140px);
   position: sticky;
   left: 70px;
   color: #FFF;
@@ -30,14 +30,18 @@
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .about-me__title {
     padding: 92px 0 0 0;
+    max-width: calc(100% - 100px);
     left: 50px;
   }
 }
 
-@media screen and (max-width: 624px) {
+@media screen and (max-width: 634px) {
   .about-me__title {
-    padding: 92px 0 0 0;
+    padding: 71.5px 0 0 0;
+    max-width: calc(100% - 28px);
     left: 14px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
   }
 }
 
@@ -54,6 +58,17 @@
   .about-me__main-container {
     margin: 22px 50px 0 50px;
     column-gap: 49px;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .about-me__main-container {
+    margin: 27px 14px 0 14px;
+    flex-direction: column-reverse;
+    justify-content: unset;
+    align-items: center;
+    column-gap: 0px;
+    row-gap: 40px;
   }
 }
 
@@ -84,6 +99,16 @@
   }
 }
 
+@media screen and (max-width: 634px) {
+  .about-me__subtitle {
+    margin: 0;
+    max-width: 100%;
+    font-size: 30px;
+    line-height: 1.21;
+    letter-spacing: -1.2px;
+  }
+}
+
 .about-me__caption {
   margin: 18px 0 0 0;
   padding: 0;
@@ -103,6 +128,15 @@
   }
 }
 
+@media screen and (max-width: 634px) {
+  .about-me__caption {
+    margin: 20px 0 0 0;
+    max-width: 100%;
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
 .about-me__text {
   margin: 26px 0 0 0;
   padding: 0;
@@ -119,6 +153,15 @@
     max-width: 364px;
     font-size: 12px;
     line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .about-me__text {
+    margin: 20px 0 0 0;
+    max-width: 100%;
+    font-size: 11px;
+    line-height: 16px;
   }
 }
 
@@ -148,6 +191,12 @@
   }
 }
 
+@media screen and (max-width: 634px) {
+  .about-me__git-link {
+    margin: 41px 0 0 0;
+  }
+}
+
 .about-me__photo {
   margin: 66px 0 0 0;
   padding: 0;
@@ -159,5 +208,13 @@
   .about-me__photo {
     width: 255px;
     height: 307px;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .about-me__photo {
+    margin: 60px 0 0 0;
+    width: 292px;
+    height: 352px;
   }
 }

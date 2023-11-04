@@ -137,14 +137,14 @@
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .about-project__graphic-data {
     margin: 93px 50px 0 50px;
-    grid-template-columns: 140px 528px;
+    grid-template-columns: 0.35fr 1.32fr;
   }
 }
 
 @media screen and (max-width: 634px) {
   .about-project__graphic-data {
     margin: 59px 18px 0 18px;
-    grid-template-columns: 100px 184px;
+    grid-template-columns: 1fr 1.84fr;
     grid-template-rows: 34px 14px;
     row-gap: 10px;
   }
