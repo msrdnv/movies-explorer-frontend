@@ -8,6 +8,12 @@
   }
 }
 
+@media screen and (max-width: 624px) {
+  .about-me {
+    min-height: 817px;
+  }
+}
+
 .about-me__title {
   margin: 0;
   padding: 110px 0 0 0;
@@ -25,6 +31,13 @@
   .about-me__title {
     padding: 92px 0 0 0;
     left: 50px;
+  }
+}
+
+@media screen and (max-width: 624px) {
+  .about-me__title {
+    padding: 92px 0 0 0;
+    left: 14px;
   }
 }
 

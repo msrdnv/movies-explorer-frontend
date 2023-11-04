@@ -15,6 +15,15 @@
   }
 }
 
+@media screen and (max-width: 634px) {
+  .promo {
+    min-height: 710px;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
 .promo__text-container {
   display: flex;
   flex-direction: column;
@@ -31,6 +40,15 @@
     margin: 49px 0 0 0;
     position: static;
     row-gap: 22px;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .promo__text-container {
+    align-items: center;
+    margin: 44px 0 0 0;
+    position: static;
+    row-gap: 24px;
   }
 }
 
@@ -55,6 +73,17 @@
   }
 }
 
+@media screen and (max-width: 634px) {
+  .promo__title {
+    max-width: 300px;
+    min-height: 114px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -1.2px;
+  }
+}
+
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .promo__title-line-break {
     display: none;
@@ -72,7 +101,7 @@
   opacity: 0.5;
 }
 
-@media screen and (max-width: 1080px) and (min-width: 635px) {
+@media screen and (max-width: 1080px) {
   .promo__caption {
     max-width: 260px;
     text-align: center;
@@ -100,17 +129,32 @@
   }
 }
 
+@media screen and (max-width: 634px) {
+  .promo__about-project-button {
+    margin: 57px 0 0 0;
+  }
+}
+
 .promo__logo {
   margin: 149px 0 0 0;
   position: sticky;
   right: 70px;
-  min-width: 310px;
-  max-height: 304px;
+  width: 310px;
+  height: 304px;
 }
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .promo__logo {
     margin: 214px 0 0 0;
     position: static;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .promo__logo {
+    margin: 144px 0 0 0;
+    position: static;
+    width: 210px;
+    height: 206px;
   }
 }
