@@ -15,7 +15,7 @@ export default function Portfolio() {
       </nav>
       <nav className='portfolio__nav-block'>
         <p className='portfolio__nav-link-name'>Одностраничное приложение</p>
-        <a className='portfolio__nav-link' href='https://mesto-frontend.msrdnv.nomoredomainsrocks.ru/'>↗</a>
+        <a className='portfolio__nav-link' href='https://mesto.msrdnv.nomoredomainsrocks.ru/'>↗</a>
       </nav>
     </div>
   );

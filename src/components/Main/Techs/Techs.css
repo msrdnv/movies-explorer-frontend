@@ -3,16 +3,23 @@
   background-color: #272727;
 }
 
-@media screen and (max-width: 1080px) and (min-width: 320px) {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
   .techs {
     min-height: 567px;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .techs {
+    min-height: 651px;
+    background-color: #202020;
   }
 }
 
 .techs__title {
   margin: 0;
   padding: 100px 0 0 0;
-  max-width: 600px;
+  max-width: calc(100% - 140px);
   position: sticky;
   left: 70px;
   color: #FFF;
@@ -22,11 +29,21 @@
   letter-spacing: -0.88px;
 }
 
-@media screen and (max-width: 1080px) and (min-width: 320px) {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
   .techs__title {
+    max-width: calc(100% - 100px);
     padding: 92px 0 0 0;
-    max-width: 652px;
     left: 50px;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .techs__title {
+    max-width: calc(100% - 36px);
+    padding: 71.5px 0 0 0;
+    left: 18px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
   }
 }
 
@@ -40,10 +57,18 @@
   row-gap: 26px;
 }
 
-@media screen and (max-width: 1080px) and (min-width: 320px) {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
   .techs__text-container {
     margin: 22px 50px 0 50px;
     row-gap: 22px;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .techs__text-container {
+    margin: 27px 18px 0 18px;
+    row-gap: 24px;
+    border-top: 1px solid #000;
   }
 }
 
@@ -59,9 +84,19 @@
   letter-spacing: -2px;
 }
 
-@media screen and (max-width: 1080px) and (min-width: 320px) {
+@media screen and (max-width: 1080px) and (min-width: 635px) {
   .techs__subtitle {
     margin: 80px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .techs__subtitle {
+    margin: 60px 0 0 0;
+    max-width: 284px;
+    font-size: 30px;
+    line-height: 1.21;
+    letter-spacing: -1.2px;
   }
 }
 
@@ -85,6 +120,15 @@
   }
 }
 
+@media screen and (max-width: 634px) {
+  .techs__caption {
+    max-width: 284px;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: -0.44px;
+  }
+}
+
 .techs__blocks {
   margin: 100px 295px 0 295px;
   padding: 0;
@@ -97,6 +141,14 @@
 @media screen and (max-width: 1080px) and (min-width: 320px) {
   .techs__blocks {
     margin: 83px 60px 0 60px;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .techs__blocks {
+    margin: 50px 71px 0 71px;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
   }
 }
 
@@ -117,7 +169,7 @@
   letter-spacing: -0.56px;
 }
 
-@media screen and (max-width: 1080px) and (min-width: 320px) {
+@media screen and (max-width: 1080px) {
   .techs__block {
     padding: 0 1px 0 0;
     min-height: 57px;
