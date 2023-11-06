@@ -11,20 +11,20 @@ export default function MoviesCardList() {
   location.pathname === '/movies' ? currentCards = cards : currentCards = savedCards;
 
   return (
-    <div className='movies-card-list'>
+    <section className='movies-card-list'>
       {(cards && cards.length > 0)
-      ? (<div className='movies-card-list__container'>
+      ? (<ul className='movies-card-list__container'>
         {currentCards.map((card) => (
-          <div key={card._id} className='movies-card'>
+          <li key={card._id} className='movies-card'>
             <MoviesCard card={card}/>
-          </div>))}
-        </div>)
+          </li>))}
+        </ul>)
       : (<span className='movies-card-list__null-result'>Нет результатов поиска!</span>)
       }
       {currentCards.length >= 5
       ? (<button className='movies-card-list__more-button' type='button'>Ещё</button>)
       : (<div className='movies-card-list__devider'/>)
       }
-    </div>
+    </section>
   );
 }

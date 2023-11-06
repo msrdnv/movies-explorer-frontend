@@ -41,6 +41,10 @@
   align-items: center;
 }
 
+.search-form__input-container:has(.search-form__input:focus) {
+  border: 1.5px solid rgba(66, 133, 244, 1);
+}
+
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .search-form__input-container {
     min-width: calc(100% - 63px);
@@ -61,11 +65,16 @@
   background: none;
   border: none;
   outline: none;
+  min-width: calc(100% - 150px);
   min-height: 100%;
-  color: #8B8B8B;
+  color: #FFF;
   font-size: 18px;
   font-weight: 400;
   line-height: 20px;
+}
+
+.search-form__input::placeholder {
+  color: #8B8B8B;
 }
 
 @media screen and (max-width: 634px) {

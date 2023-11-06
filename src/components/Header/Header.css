@@ -1,13 +1,15 @@
 .header {
+  margin: 0 auto 0;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   min-height: 74px;
+  max-width: 1280px;
 }
 
 .header__nav-logo {
+  margin: 0 0 0 70px;
   display: flex;
-  position: sticky;
-  left: 70px;
 }
 
 .header__nav-logo:hover {
@@ -16,13 +18,13 @@
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .header__nav-logo {
-    left: 30px;
+    margin: 0 0 0 30px;
   }
 }
 
 @media screen and (max-width: 634px) {
   .header__nav-logo {
-    left: 14px;
+    margin: 0 0 0 14px;
   }
 }
 
@@ -33,10 +35,8 @@
 }
 
 .header__nav-menu {
-  margin: 0;
+  margin: 0 70px 0 0;
   padding: 0;
-  position: sticky;
-  right: 70px;
   display: flex;
   column-gap: 30px;
   align-items: center;
@@ -44,13 +44,13 @@
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .header__nav-menu {
-    right: 30px;
+    margin: 0 30px 0 0;
   }
 }
 
 @media screen and (max-width: 634px) {
   .header__nav-menu {
-    right: 14px;
+    margin: 0 14px 0 0;
     column-gap: 14px;
   }
 }
@@ -110,8 +110,15 @@
   border: none;
   border-radius: 3px;
   background-color: #3DDC84;
-  color: #000;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 .header__nav-button:hover {
@@ -122,14 +129,14 @@
   .header__nav-button {
     min-width: 54px;
     min-height: 26px;
+    font-size: 10px;
   }
 }
 
-.header__nav-button_logged {
+.header__account-button {
   margin: -2px 0 0 0;
   padding: 0 0 0 29px;
   min-width: 100px;
-  min-height: 30px;
   border: none;
   background-color: transparent;
   color: #FFF;
@@ -140,11 +147,16 @@
   align-items: center;
   column-gap: 14px;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.header__nav-button-logo-container {
-  min-width: 30px;
-  min-height: 30px;
+.header__account-button:hover {
+  opacity: 0.8;
+}
+
+.header__account-button-logo-container {
+  width: 30px;
+  height: 30px;
   background-color: #0F4157;
   border-radius: 6px;
   display: flex;
@@ -152,7 +164,7 @@
   align-items: center;
 }
 
-.header__nav-button-logo-container_theme-dark {
+.header__account-button-logo-container_theme-dark {
   background-color: #313131;
 }
 
@@ -168,7 +180,6 @@
   width: 44px;
   border: none;
   outline: none;
-  z-index: 3;
   cursor: pointer;
 }
 
@@ -195,27 +206,4 @@
 
 .header__burger-menu-button_active {
   display: none;
-  margin: 22px 0 0 0;
-  right: 22px;
-  background: url(../../images/close-icon.svg) no-repeat;
-  background-size: 32px 32px;
-  height: 32px;
-  width: 32px;
-}
-
-@media screen and (max-width: 1080px) and (min-width: 635px) {
-  .header__burger-menu-button_active {
-    display: flex;
-  }
-}
-
-@media screen and (max-width: 634px) {
-  .header__burger-menu-button_active {
-    display: flex;
-    margin: 13.5px 0 0 0;
-    right: 13.5px;
-    background-size: 31px 31px;
-    height: 31px;
-    width: 31px;
-  }
 }

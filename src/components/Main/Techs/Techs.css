@@ -1,27 +1,17 @@
 .techs {
-  min-height: 625px;
   background-color: #272727;
-}
-
-@media screen and (max-width: 1080px) and (min-width: 635px) {
-  .techs {
-    min-height: 567px;
-  }
 }
 
 @media screen and (max-width: 634px) {
   .techs {
-    min-height: 651px;
     background-color: #202020;
   }
 }
 
 .techs__title {
-  margin: 0;
+  margin: 0 0 0 70px;
   padding: 100px 0 0 0;
   max-width: calc(100% - 140px);
-  position: sticky;
-  left: 70px;
   color: #FFF;
   font-size: 22px;
   font-weight: 400;
@@ -31,17 +21,17 @@
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .techs__title {
+    margin: 0 0 0 50px;
     max-width: calc(100% - 100px);
     padding: 92px 0 0 0;
-    left: 50px;
   }
 }
 
 @media screen and (max-width: 634px) {
   .techs__title {
+    margin: 0 0 0 18px;
     max-width: calc(100% - 36px);
     padding: 71.5px 0 0 0;
-    left: 18px;
     font-size: 18px;
     letter-spacing: -0.72px;
   }
@@ -131,7 +121,7 @@
 
 .techs__blocks {
   margin: 100px 295px 0 295px;
-  padding: 0;
+  padding: 0 0 100px 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   column-gap: 10px;
@@ -141,12 +131,14 @@
 @media screen and (max-width: 1080px) and (min-width: 320px) {
   .techs__blocks {
     margin: 83px 60px 0 60px;
+    padding: 0 0 89px 0;
   }
 }
 
 @media screen and (max-width: 634px) {
   .techs__blocks {
     margin: 50px 71px 0 71px;
+    padding: 0 0 69.5px 0;
     grid-template-columns: 1fr 1fr;
     row-gap: 10px;
   }

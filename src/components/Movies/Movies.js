@@ -10,8 +10,10 @@ export default function Movies() {
   return (
     <>
       <Header/>
-      <SearchForm/>
-      <MoviesCardList/>
+      <main className='movies'>
+        <SearchForm/>
+        <MoviesCardList/>
+      </main>
       <Footer/>
     </>
   )

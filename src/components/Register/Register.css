@@ -1,18 +1,5 @@
 .register {
-  min-height: 700px;
   display: flex;
-}
-
-@media screen and (max-width: 1080px) and (min-width: 635px) {
-  .register {
-    min-height: 1024px;
-  }
-}
-
-@media screen and (max-width: 634px) {
-  .register {
-    min-height: 780px;
-  }
 }
 
 .register__container {
@@ -66,7 +53,6 @@
   margin: 0;
   padding: 0;
   min-width: 396px;
-  min-height: 266px;
   display: flex;
   flex-direction: column;
 }
@@ -106,6 +92,10 @@
 
 .register__input:focus {
   border-bottom: 1px solid #4285F4;;
+}
+
+.register__input::placeholder {
+  color: #8B8B8B;
 }
 
 .register__error {

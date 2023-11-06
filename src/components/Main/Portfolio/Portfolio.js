@@ -3,7 +3,7 @@ import './Portfolio.css'
 
 export default function Portfolio() {
   return (
-    <div className='portfolio'>
+    <section className='portfolio'>
       <h2 className='portfolio__title'>Портфолио</h2>
       <nav className='portfolio__nav-block'>
         <p className='portfolio__nav-link-text'>Статичный сайт</p>
@@ -17,6 +17,6 @@ export default function Portfolio() {
         <p className='portfolio__nav-link-text'>Одностраничное приложение</p>
         <a className='portfolio__nav-link' href='https://mesto.msrdnv.nomoredomainsrocks.ru/' target='_blank' rel='noreferrer'>↗</a>
       </nav>
-    </div>
+    </section>
   );
 }

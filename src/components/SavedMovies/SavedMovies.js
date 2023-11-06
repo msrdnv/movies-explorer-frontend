@@ -10,8 +10,10 @@ export default function SavedMovies() {
   return (
     <>
       <Header/>
-      <SearchForm/>
-      <MoviesCardList/>
+      <main className='saved-movies'>
+        <SearchForm/>
+        <MoviesCardList/>
+      </main>
       <Footer/>
     </>
   )

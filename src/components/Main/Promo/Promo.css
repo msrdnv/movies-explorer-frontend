@@ -1,23 +1,12 @@
 .promo {
-  margin-top: -74.5px;
-  min-height: 648px;
+  margin: -74.5px 0 0 0;
   background-color: #073042;
   display: flex;
   justify-content: space-between;
 }
 
-@media screen and (max-width: 1080px) and (min-width: 635px) {
+@media screen and (max-width: 1080px) {
   .promo {
-    min-height: 924px;
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: flex-end;
-  }
-}
-
-@media screen and (max-width: 634px) {
-  .promo {
-    min-height: 710px;
     flex-direction: column-reverse;
     align-items: center;
     justify-content: flex-end;
@@ -28,9 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 149px 0 0 0;
-  position: sticky;
-  left: 70px;
+  margin: 149px 0 0 70px;
   row-gap: 36px;
 }
 
@@ -38,7 +25,6 @@
   .promo__text-container {
     align-items: center;
     margin: 49px 0 0 0;
-    position: static;
     row-gap: 22px;
   }
 }
@@ -47,7 +33,6 @@
   .promo__text-container {
     align-items: center;
     margin: 44px 0 0 0;
-    position: static;
     row-gap: 24px;
   }
 }
@@ -57,7 +42,6 @@
   padding: 0;
   color: #FFF;
   max-width: 640px;
-  min-height: 174px;
   font-size: 50px;
   font-weight: 400;
   line-height: 1.16;
@@ -66,7 +50,6 @@
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .promo__title {
     max-width: 680px;
-    min-height: 100px;
     text-align: center;
     font-size: 40px;
     line-height: 1.25;
@@ -76,7 +59,6 @@
 @media screen and (max-width: 634px) {
   .promo__title {
     max-width: 300px;
-    min-height: 114px;
     text-align: center;
     font-size: 30px;
     line-height: 38px;
@@ -108,15 +90,11 @@
   }
 }
 
-.promo__nav-link {
-  cursor: default;
-}
-
 .promo__about-project-button {
-  margin: 111px 0 0 0;
+  margin: 111px 0 74.5px 0;
   padding: 0;
-  min-width: 129px;
-  min-height: 36px;
+  min-width: 127px;
+  min-height: 34px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 3px;
   background-color: #073042;
@@ -126,6 +104,9 @@
   font-size: 12px;
   line-height: 16px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .promo__about-project-button:hover {
@@ -134,20 +115,18 @@
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .promo__about-project-button {
-    margin: 70px 0 0 0;
+    margin: 70px 1px 75.5px 0;
   }
 }
 
 @media screen and (max-width: 634px) {
   .promo__about-project-button {
-    margin: 57px 0 0 0;
+    margin: 57px 1px 30px 0;
   }
 }
 
 .promo__logo {
-  margin: 149px 0 0 0;
-  position: sticky;
-  right: 70px;
+  margin: 149px 70px 0 0;
   width: 310px;
   height: 304px;
 }
@@ -155,14 +134,12 @@
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .promo__logo {
     margin: 214px 0 0 0;
-    position: static;
   }
 }
 
 @media screen and (max-width: 634px) {
   .promo__logo {
     margin: 144px 0 0 0;
-    position: static;
     width: 210px;
     height: 206px;
   }
