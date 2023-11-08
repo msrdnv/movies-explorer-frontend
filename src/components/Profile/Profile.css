@@ -1,0 +1,144 @@
+.profile__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile__title {
+  margin: 0;
+  padding: 74px 2px 0 0;
+  max-width: max-content;
+  color: #FFF;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.21;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .profile__title {
+    padding: 236px 2px 0 0;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .profile__title {
+    padding: 70px 0 0 0;
+  }
+}
+
+.profile__form {
+  margin: 123px 0 0 0;
+  padding: 0;
+  min-width: 410px;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .profile__form {
+    margin: 96px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .profile__form {
+    margin: 80px 0 0 0;
+    min-width: 260px;
+  }
+}
+
+.profile__inputs {
+  margin: 0;
+  padding: 0;
+  min-height: 30px;
+  border-bottom: 1px solid #424242;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.profile__inputs:has(.profile__input:focus) {
+  border-bottom: 1px solid #4285F4;
+}
+
+.profile__inputs_place-under-bar {
+  min-height: 46px;
+  margin: 1px 0 0 0;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+}
+
+.profile__label {
+  margin: 0;
+  padding: 0;
+  color: #FFF;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.21;
+}
+
+.profile__input {
+  margin: 0;
+  padding: 0;
+  background: none;
+  outline: none;
+  border: none;
+  text-align: right;
+  color: #FFF;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.21;
+}
+
+.profile__update-button {
+  margin: 203px 0 0 0;
+  padding: 0;
+  min-width: 410px;
+  background: none;
+  border: none;
+  color: #FFF;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.21;
+  cursor: pointer;
+}
+
+.profile__update-button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .profile__update-button {
+    margin: 193px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .profile__update-button {
+    margin: 362px 0 0 0;
+    min-width: 260px;
+    font-size: 12px;
+  }
+}
+
+.profile__logout-button {
+  margin: 16px 0 0 0;
+  padding: 0;
+  min-width: 410px;
+  background: none;
+  border: none;
+  color: #EE3465;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.21;
+  cursor: pointer;
+}
+
+.profile__logout-button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 634px) {
+  .profile__logout-button {
+    min-width: 260px;
+    font-size: 12px;
+  }
+}

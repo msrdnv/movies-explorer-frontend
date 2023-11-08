@@ -1,0 +1,126 @@
+.footer {
+  margin: 0 auto;
+  padding: 0 0 19.5px 0;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 634px) {
+  .footer {
+    padding: 0 0 21.5px 0;
+  }
+}
+
+.footer__caption {
+  margin: 0 auto 20px auto;
+  padding: 79px 0 0 0;
+  max-width: 320px;
+  color: #8B8B8B;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.21;
+}
+
+@media screen and (max-width: 634px) {
+  .footer__caption {
+    margin: 0 auto 21px auto;
+    padding: 78.5px 0 0 0;
+    max-width: 300px;
+    color: #8B8B8B;
+    font-size: 12px;
+  }
+}
+
+.footer__container {
+  margin: 0 70px 0 70px;
+  padding: 21px 0 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1px solid #424242;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .footer__container {
+    margin: 0 30px 0 30px;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .footer__container {
+    margin: 0 10px 0 10px;
+    padding: 30.5px 0 0 0;
+    flex-direction: column-reverse;
+    justify-content: unset;
+    align-items: center;
+    row-gap: 30.5px;
+  }
+}
+
+.footer__text {
+  margin: 0;
+  padding: 0;
+  color: #FFF;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.21;
+}
+
+@media screen and (max-width: 634px) {
+  .footer__text {
+    color: #8B8B8B;
+    font-size: 12px;
+    padding: 0 1px 0 0;
+  }
+}
+
+.footer__text-space {
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 634px) {
+  .footer__text-space  {
+    display: none;
+  }
+}
+
+.footer__nav-container {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+@media screen and (max-width: 634px) {
+  .footer__nav-container {
+    flex-direction: column;
+    align-items: center;
+    column-gap: 0;
+    row-gap: 12px;
+  }
+}
+
+.footer__nav-link {
+  margin: 0;
+  padding: 0;
+  color: #FFF;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.21;
+  text-decoration: none;
+}
+
+.footer__nav-link:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 634px) {
+  .footer__nav-link {
+    padding: 0 1.5px 0 0;
+    font-size: 12px;
+  }
+}
+
