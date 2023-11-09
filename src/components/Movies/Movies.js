@@ -13,7 +13,6 @@ export default function Movies() {
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
-  const [movies, setMovies] = React.useState([]);
 
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault()
@@ -21,8 +20,18 @@ export default function Movies() {
     setIsLoading(true)
     moviesApi.getMovies()
     .then((data) => {
-      console.log(data);
-      setMovies(...movies, data);
+      const searchQuery = evt.target['search-form-input'].value;
+      const shortMoviesCheckbox = evt.target['search-form-checkbox'].checked
+      const filteredMovies = data.filter(function (item) {
+        if (shortMoviesCheckbox === true) {
+          return (item.nameRU.startsWith(searchQuery) & item.duration <= 40)
+        } else {
+          return (item.nameRU.startsWith(searchQuery))
+        }
+      })
+      localStorage.setItem('last-search-query', searchQuery)
+      localStorage.setItem('last-checkbox-state', JSON.stringify(shortMoviesCheckbox))
+      localStorage.setItem('filtered-movies', JSON.stringify(filteredMovies))
     })
     .catch((err) => {
       setIsError(true)
@@ -33,14 +42,17 @@ export default function Movies() {
 
   const validateSearchForm = (evt) => setCustomErrorMsg(evt, errorMsgSearchForm);
 
-  console.log('Открыта страница с фильмами!');
-
   return (
     <>
       <Header/>
       <main className='movies'>
-        <SearchForm onSubmit={handleSubmitSearchForm} onValidate={validateSearchForm}/>
-        {isLoading ? <Preloader/> : <MoviesCardList isError={isError} movies={movies}/>}
+        <SearchForm
+          defaultValue={localStorage.getItem('last-search-query')}
+          defaultChecked={JSON.parse(localStorage.getItem('last-checkbox-state'))}
+          onSubmit={handleSubmitSearchForm}
+          onValidate={validateSearchForm}
+        />
+        {isLoading ? <Preloader/> : <MoviesCardList isError={isError}/>}
       </main>
       <Footer/>
     </>

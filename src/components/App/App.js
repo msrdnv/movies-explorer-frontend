@@ -21,6 +21,7 @@ export default function App() {
 
  function handleLogoutButton() {
     setIsLoggedIn(false);
+    localStorage.clear();
     navigate('/');
   };
 

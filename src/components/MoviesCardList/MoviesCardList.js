@@ -3,12 +3,19 @@ import './MoviesCardList.css'
 import { useLocation } from 'react-router-dom'
 import MoviesCard from '../MoviesCard/MoviesCard'
 
-export default function MoviesCardList({ isError, movies }) {
+export default function MoviesCardList({ isError }) {
 
   const location = useLocation();
-  let currentMovies = [];
-  let savedMovies = [];
-  location.pathname === '/movies' ? currentMovies = movies : currentMovies = savedMovies;
+  const [currentMovies, setCurrentMovies] = React.useState([])
+
+  React.useEffect(() => {
+    const filteredMovies = JSON.parse(localStorage.getItem('filtered-movies'))
+    if (filteredMovies !== null & location.pathname === '/movies') {
+      setCurrentMovies(filteredMovies)
+    } else {
+      setCurrentMovies([])
+    }
+  }, [location])
 
   const [width, setWidth] = React.useState(window.innerWidth);
   const [initialMaxCardNumber, setInitialMaxCardNumber] = React.useState(0);
