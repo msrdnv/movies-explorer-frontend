@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Register.css'
 import logo from '../../images/logo.svg'
-import { emailRegex, nameRegex } from '../../utils/constants';
+import { errorMsgRegisterName, errorMsgEmail, emailRegex, nameRegex } from '../../utils/constants';
 
 export default function Register({ onSubmit }) {
 
@@ -47,7 +47,7 @@ export default function Register({ onSubmit }) {
             maxLength='30'
             required
           />
-          <span className='register__error' id='register-name-input-error'>{isNameValid ? '' : 'Введите имя пользователя на русском или английском языке'}</span>
+          <span className='register__error' id='register-name-input-error'>{isNameValid ? '' : errorMsgRegisterName}</span>
           <label className='register__label' htmlFor='register-email-input'>E-mail</label>
           <input
             className='register__input'
@@ -58,7 +58,7 @@ export default function Register({ onSubmit }) {
             onChange={validateEmail}
             required
           />
-          <span className='register__error' id='register-email-input-error'>{isEmailValid ? '' : 'Введите корректный адрес электронной почты'}</span>
+          <span className='register__error' id='register-email-input-error'>{isEmailValid ? '' : errorMsgEmail}</span>
           <label className='register__label' htmlFor='register-password-input'>Пароль</label>
           <input
             className='register__input'
