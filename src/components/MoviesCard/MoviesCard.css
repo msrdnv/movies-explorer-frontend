@@ -65,23 +65,24 @@
 .movies-card__image {
   margin: 0;
   padding: 0;
-  max-width: 360px;
-  max-height: 200px;
+  width: 360px;
+  height: 200px;
   grid-area: image;
   justify-self: center;
+  object-fit: contain;
 }
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .movies-card__image {
-    max-width: 342px;
-    max-height: 190px;
+    width: 342px;
+    height: 190px;
   }
 }
 
 @media screen and (max-width: 634px) {
   .movies-card__image {
-    max-width: 300px;
-    max-height: 168px;
+    width: 300px;
+    height: 168px;
   }
 }
 

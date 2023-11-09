@@ -1,12 +1,13 @@
 import React from 'react'
 import './SearchForm.css'
 
-export default function SearchForm() {
+export default function SearchForm({ onSubmit, onValidate }) {
+
   return (
     <div className='search-form'>
-      <form className='search-form__form' name='search-form'>
+      <form className='search-form__form' name='search-form' onSubmit={onSubmit}>
         <div className='search-form__input-container'>
-          <input className='search-form__input' name='search-form-input' type='text' placeholder='Фильм'/>
+          <input className='search-form__input' name='search-form-input' type='text' placeholder='Фильм' onChange={onValidate} onInvalid={onValidate} required/>
           <button className='search-form__button'>Поиск</button>
         </div>
         <div className='search-form__checkbox-container'>

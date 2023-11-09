@@ -9,9 +9,9 @@ export default function MoviesCard({card}) {
 
   return (
     <>
-      <h2 className='movies-card__name'>{card.name}</h2>
+      <h2 className='movies-card__name'>{card.nameRU}</h2>
       <p className='movies-card__duration'>{`${Math.floor(card.duration / 60)}ч ${card.duration % 60}м`}</p>
-      <img className='movies-card__image' src={card.image} alt={card.name}/>
+      <img className='movies-card__image' src={`https://api.nomoreparties.co/${card.image.url}`} alt={card.nameRU}/>
       <button className={location.pathname === '/saved-movies' ? 'movies-card__button movies-card__button_delete'
       : ((location.pathname === '/movies' && isSaved) ? 'movies-card__button movies-card__button_saved' : 'movies-card__button')}
       type='button'>{(location.pathname === '/movies' && !isSaved) ? 'Cохранить' : ''}</button>
