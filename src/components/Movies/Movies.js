@@ -26,7 +26,7 @@ export default function Movies() {
     })
     .catch((err) => {
       setIsError(true)
-      console(err)
+      console.log(err)
     })
     .finally(() => setIsLoading(false));
   }
