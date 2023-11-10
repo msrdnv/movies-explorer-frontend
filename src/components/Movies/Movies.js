@@ -8,11 +8,13 @@ import Footer from '../Footer/Footer'
 import { errorMsgSearchForm } from '../../utils/constants.js'
 import { setCustomErrorMsg } from '../../utils/utils.js'
 import { moviesApi } from '../../utils/MoviesApi'
+import { useForm } from '../../hooks/useForm'
 
 export default function Movies() {
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
+  const { values, handleChange, setValues } = useForm();
 
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault()
@@ -20,8 +22,8 @@ export default function Movies() {
     setIsLoading(true)
     moviesApi.getMovies()
     .then((data) => {
-      const searchQuery = evt.target['search-form-input'].value;
-      const shortMoviesCheckbox = evt.target['search-form-checkbox'].checked
+      const searchQuery = values.search;
+      const shortMoviesCheckbox = values.checkbox;
       const filteredMovies = data.filter(function (item) {
         if (shortMoviesCheckbox === true) {
           return (item.nameRU.startsWith(searchQuery) & item.duration <= 40)
@@ -40,7 +42,15 @@ export default function Movies() {
     .finally(() => setIsLoading(false));
   }
 
-  const validateSearchForm = (evt) => setCustomErrorMsg(evt, errorMsgSearchForm);
+  const validateSearchForm = (evt) => {
+    handleChange(evt);
+    setCustomErrorMsg(evt, errorMsgSearchForm);
+  }
+
+  const handleCheckbox = (evt) => {
+    const {checked, name} = evt.target;
+    setValues({...values, [name]: checked});
+  }
 
   return (
     <>
@@ -51,6 +61,7 @@ export default function Movies() {
           defaultChecked={JSON.parse(localStorage.getItem('last-checkbox-state'))}
           onSubmit={handleSubmitSearchForm}
           onValidate={validateSearchForm}
+          handleCheckbox={handleCheckbox}
         />
         {isLoading ? <Preloader/> : <MoviesCardList isError={isError}/>}
       </main>

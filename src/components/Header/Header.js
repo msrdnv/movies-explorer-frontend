@@ -4,11 +4,11 @@ import './Header.css'
 import logo from '../../images/logo.svg'
 import icon from '../../images/account-icon.svg'
 import NavTab from '../NavTab/NavTab'
-import { AppContext } from '../../contexts/AppContext.js'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 export default function Header() {
 
-  const app = React.useContext(AppContext);
+  const user = React.useContext(CurrentUserContext);
   const location = useLocation();
 
   const [isBurgerMenuOpened, setIsBurgerMenuOpened] = React.useState(false);
@@ -22,7 +22,7 @@ export default function Header() {
       <Link className='header__nav-logo' to='/'>
         <img className='header__logo' src={logo} alt='Логотип сайта'/>
       </Link>
-      {app.isLoggedIn
+      {user.isLoggedIn
       ? (<>
           <nav className='header__nav-menu header__nav-menu_logged'>
             <NavLink className={({isActive}) => `header__nav-link header__nav-link_logged ${isActive ? 'header__nav-link_active' : ''}`} to='/movies'>Фильмы</NavLink>

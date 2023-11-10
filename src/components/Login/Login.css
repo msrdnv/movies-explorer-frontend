@@ -135,6 +135,11 @@
   opacity: 0.8;
 }
 
+.login__submit-button_disabled {
+  background: #F8F8F8;
+  color: #C2C2C2;
+}
+
 .login__caption {
   margin: 17px auto 0 auto;
   padding: 0;

@@ -30,6 +30,8 @@
   margin: 123px 0 0 0;
   padding: 0;
   min-width: 410px;
+  display: flex;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 1080px) and (min-width: 635px) {
@@ -78,6 +80,7 @@
 .profile__input {
   margin: 0;
   padding: 0;
+  min-width: calc(100% - 50px);
   background: none;
   outline: none;
   border: none;
@@ -88,8 +91,31 @@
   line-height: 1.21;
 }
 
+.profile__error {
+  margin: 163px 0 0 0;
+  padding: 0;
+  min-height: 20px;
+  color: #EE3465;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.21;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .profile__error {
+    margin: 153px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .profile__error {
+    margin: 322px 0 0 0;
+  }
+}
+
 .profile__update-button {
-  margin: 203px 0 0 0;
+  margin: 20px 0 0 0;
   padding: 0;
   min-width: 410px;
   background: none;
@@ -105,15 +131,12 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 1080px) and (min-width: 635px) {
-  .profile__update-button {
-    margin: 193px 0 0 0;
-  }
+.profile__update-button_disabled {
+  color: #8B8B8B;
 }
 
 @media screen and (max-width: 634px) {
   .profile__update-button {
-    margin: 362px 0 0 0;
     min-width: 260px;
     font-size: 12px;
   }

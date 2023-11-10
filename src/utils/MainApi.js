@@ -28,10 +28,6 @@ class MainApi {
     return this._request(`${this._baseUrl}/users/me`, { method: 'GET', headers: {'Authorization' : `Bearer ${token}`, ...this._headers }});
   };
 
-  checkToken(token) {
-    return this._request(`${this._baseUrl}/users/me`, { method: 'GET', headers: {'Authorization' : `Bearer ${token}`, ...this._headers }});
-  };
-
   editCurrentUser (data, token) {
     return this._request(`${this._baseUrl}/users/me`, { method: 'PATCH', headers: {'Authorization' : `Bearer ${token}`, ...this._headers }, body: JSON.stringify(data)});
   };
