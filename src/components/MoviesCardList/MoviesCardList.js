@@ -1,21 +1,18 @@
 import React from 'react'
 import './MoviesCardList.css'
-import { useLocation } from 'react-router-dom'
 import MoviesCard from '../MoviesCard/MoviesCard'
 
-export default function MoviesCardList({ isError }) {
+export default function MoviesCardList({ movies, isApiError }) {
 
-  const location = useLocation();
   const [currentMovies, setCurrentMovies] = React.useState([])
 
   React.useEffect(() => {
-    const filteredMovies = JSON.parse(localStorage.getItem('filtered-movies'))
-    if (filteredMovies !== null & location.pathname === '/movies') {
-      setCurrentMovies(filteredMovies)
+    if (movies.length > 0) {
+      setCurrentMovies(movies)
     } else {
       setCurrentMovies([])
     }
-  }, [location])
+  }, [movies])
 
   const [width, setWidth] = React.useState(window.innerWidth);
   const [initialMaxCardNumber, setInitialMaxCardNumber] = React.useState(0);
@@ -83,7 +80,7 @@ export default function MoviesCardList({ isError }) {
       {(currentMovies && currentMovies.length > 0)
         ? (<ul className='movies-card-list__container'>{renderCards(currentCardNumber)}</ul>)
         : (<span className='movies-card-list__null-result'>
-            {isError
+            {isApiError
               ? 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
               : 'Ничего не найдено'
             }

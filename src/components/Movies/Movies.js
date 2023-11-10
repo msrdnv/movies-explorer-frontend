@@ -5,7 +5,7 @@ import SearchForm from '../SearchForm/SearchForm'
 import Preloader from '../Preloader/Preloader'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Footer from '../Footer/Footer'
-import { errorMsgSearchForm } from '../../utils/constants.js'
+import { ERROR_MSG_SEARCH } from '../../utils/constants.js'
 import { setCustomErrorMsg } from '../../utils/utils.js'
 import { moviesApi } from '../../utils/MoviesApi'
 import { useForm } from '../../hooks/useForm'
@@ -13,30 +13,32 @@ import { useForm } from '../../hooks/useForm'
 export default function Movies() {
 
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isError, setIsError] = React.useState(false);
+  const [isApiError, setIsApiError] = React.useState(false);
   const { values, handleChange, setValues } = useForm();
+
+  const filteredMovies = JSON.parse(localStorage.getItem('filtered-movies')) || []
 
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault()
-    setIsError(false)
     setIsLoading(true)
+    setIsApiError(false)
     moviesApi.getMovies()
     .then((data) => {
-      const searchQuery = values.search;
-      const shortMoviesCheckbox = values.checkbox;
-      const filteredMovies = data.filter(function (item) {
-        if (shortMoviesCheckbox === true) {
-          return (item.nameRU.startsWith(searchQuery) & item.duration <= 40)
+      const search = values.search;
+      const checkbox = values.checkbox;
+      const filteredMovies = data.filter((item) => {
+        if (checkbox === true) {
+          return item.nameRU.startsWith(search) && item.duration <= 40
         } else {
-          return (item.nameRU.startsWith(searchQuery))
+          return item.nameRU.startsWith(search)
         }
       })
-      localStorage.setItem('last-search-query', searchQuery)
-      localStorage.setItem('last-checkbox-state', JSON.stringify(shortMoviesCheckbox))
+      localStorage.setItem('last-search-query', search)
+      localStorage.setItem('last-checkbox-state', JSON.stringify(checkbox))
       localStorage.setItem('filtered-movies', JSON.stringify(filteredMovies))
     })
     .catch((err) => {
-      setIsError(true)
+      setIsApiError(true)
       console.log(err)
     })
     .finally(() => setIsLoading(false));
@@ -44,7 +46,7 @@ export default function Movies() {
 
   const validateSearchForm = (evt) => {
     handleChange(evt);
-    setCustomErrorMsg(evt, errorMsgSearchForm);
+    setCustomErrorMsg(evt, ERROR_MSG_SEARCH);
   }
 
   const handleCheckbox = (evt) => {
@@ -58,12 +60,12 @@ export default function Movies() {
       <main className='movies'>
         <SearchForm
           defaultValue={localStorage.getItem('last-search-query')}
-          defaultChecked={JSON.parse(localStorage.getItem('last-checkbox-state'))}
+          defaultChecked={localStorage.getItem('last-checkbox-state')}
           onSubmit={handleSubmitSearchForm}
           onValidate={validateSearchForm}
           handleCheckbox={handleCheckbox}
         />
-        {isLoading ? <Preloader/> : <MoviesCardList isError={isError}/>}
+        {isLoading ? <Preloader/> : <MoviesCardList movies={filteredMovies} isApiError={isApiError}/>}
       </main>
       <Footer/>
     </>

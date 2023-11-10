@@ -2,7 +2,7 @@ import React from 'react'
 import './Profile.css'
 import Header from '../Header/Header'
 import { mainApi } from '../../utils/MainApi'
-import { emailRegex, nameRegex } from '../../utils/constants'
+import { EMAIL_REGEX, NAME_REGEX } from '../../utils/constants'
 import { handleEmailConflictError, disableApiConflictErrors } from '../../utils/utils'
 import { useForm } from '../../hooks/useForm'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
@@ -21,19 +21,19 @@ export default function Profile({ onLogout }) {
 
   React.useEffect(() => {
     disableApiConflictErrors(setIsApiError, setIsEmailConflictError);
-    (values.name && values.email) && (isNameValid & isEmailValid) && (values.name !== currentUser.name || values.email !== currentUser.email)
+    (values.name && values.email) && (isNameValid && isEmailValid) && (values.name !== currentUser.name || values.email !== currentUser.email)
     ? setIsFormValid(true)
     : setIsFormValid(false)
   }, [isNameValid, isEmailValid, currentUser.email, currentUser.name, values])
 
   React.useEffect(() => {
-    nameRegex.test(values.name) && values.name.length > 2 && values.name.length <= 30
+    NAME_REGEX.test(values.name) && values.name.length > 2 && values.name.length <= 30
     ? setIsNameValid(true)
     : setIsNameValid(false)
   }, [values.name])
 
   React.useEffect(() => {
-    emailRegex.test(values.email)
+    EMAIL_REGEX.test(values.email)
     ? setIsEmailValid(true)
     : setIsEmailValid(false)
   }, [values.email])
@@ -63,7 +63,7 @@ export default function Profile({ onLogout }) {
             <div className='profile__inputs'>
               <label className='profile__label' htmlFor='profile-name'>Имя</label>
               <input
-                className='profile__input'
+                className={(values.name.length === 0 ? 'profile__input' : (isNameValid ? 'profile__input' : 'profile__input profile__input_error'))}
                 defaultValue={currentUser.name || ''}
                 type='text'
                 placeholder='Имя'
@@ -77,7 +77,7 @@ export default function Profile({ onLogout }) {
             <div className='profile__inputs profile__inputs_place-under-bar'>
               <label className='profile__label' htmlFor='profile-email'>E-mail</label>
               <input
-                className='profile__input'
+                className={(values.email.length === 0 ? 'profile__input' : (isEmailValid ? 'profile__input' : 'profile__input profile__input_error'))}
                 defaultValue={currentUser.email || ''}
                 type='email' placeholder='E-mail'
                 name='email'

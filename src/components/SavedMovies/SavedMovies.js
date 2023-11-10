@@ -8,12 +8,16 @@ import Footer from '../Footer/Footer'
 
 export default function SavedMovies() {
 
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const savedMovies = JSON.parse(localStorage.getItem('saved-movies')) || []
+
   return (
     <>
       <Header/>
       <main className='saved-movies'>
         <SearchForm/>
-        <MoviesCardList/>
+        {isLoading ? <Preloader/> : <MoviesCardList movies={savedMovies}/>}
       </main>
       <Footer/>
     </>

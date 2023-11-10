@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
 import logo from '../../images/logo.svg'
-import { errorMsgEmail, emailRegex } from '../../utils/constants'
+import { ERROR_MSG_EMAIL, EMAIL_REGEX } from '../../utils/constants'
 import { mainApi } from '../../utils/MainApi'
 import { useForm } from '../../hooks/useForm'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
@@ -10,60 +10,45 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 export default function Login() {
 
   const navigate = useNavigate();
-  const user = React.useContext( CurrentUserContext );
-  const { values, handleChange } = useForm();
+  const { setIsLoggedIn } = React.useContext( CurrentUserContext );
+  const { values, handleChange } = useForm({email: '', password: ''});
 
-  const [isEmailValid, setIsEmailValid] = React.useState(true);
-  const [isPasswordValid, setIsPasswordValid] = React.useState(true);
+  const [isEmailValid, setIsEmailValid] = React.useState(false);
+  const [isPasswordValid, setIsPasswordValid] = React.useState(false);
   const [isFormValid, setIsFormValid] = React.useState(false);
 
-  const [isError, setIsError] = React.useState(false);
+  const [isApiError, setIsApiError] = React.useState(false);
 
   React.useEffect(() => {
-    setIsError(false);
-    if ((values.email && values.password) && (isEmailValid & isPasswordValid)) {
-      setIsFormValid(true);
-    } else {
-      setIsFormValid(false);
-    }
+    setIsApiError(false);
+    (values.email && values.password) && (isEmailValid && isPasswordValid)
+    ? setIsFormValid(true)
+    : setIsFormValid(false);
   }, [isEmailValid, isPasswordValid, values])
 
-  const validateEmail = (evt) => {
-    handleChange(evt);
-    const { value } = evt.target
-    if (emailRegex.test(value)) {
-      setIsEmailValid(true);
-    } else {
-      setIsEmailValid(false);
-    }
-  };
+  React.useEffect(() => {
+    EMAIL_REGEX.test(values.email)
+    ? setIsEmailValid(true)
+    : setIsEmailValid(false);
+  }, [values.email])
 
-  const validatePassword = (evt) => {
-    handleChange(evt);
-    const { value } = evt.target
-    if (value.length > 0) {
-      setIsPasswordValid(true);
-    } else {
-      setIsPasswordValid(false);
-    }
-  }
+  React.useEffect(() => {
+    values.password.length > 0
+    ? setIsPasswordValid(true)
+    : setIsPasswordValid(false);
+  }, [values.password])
 
   const handleLoginSubmitButton = ({ email, password }) => {
-    setIsError(false)
+    setIsApiError(false)
     mainApi.login({ email, password })
     .then((data) => {
-      user.setIsLoggedIn(true);
+      setIsLoggedIn(true);
       localStorage.setItem('token', data.token);
       navigate('/movies');
     })
     .catch((err) => {
-      if (err) {
-        setIsError(true)
+        setIsApiError(true)
         console.log(err)
-      } else {
-        setIsError(true)
-        console.log(err)
-      }
     })
   }
 
@@ -90,10 +75,10 @@ export default function Login() {
             placeholder='Введите адрес электронной почты'
             name='email'
             id='login-email-input'
-            onChange={validateEmail}
+            onChange={handleChange}
             required
           />
-          <span className='login__error'>{isEmailValid ? '' : errorMsgEmail}</span>
+          <span className='login__error'>{(values.email.length === 0 ? '' : (isEmailValid ? '' : ERROR_MSG_EMAIL))}</span>
           <label className='login__label' htmlFor='login-password-input'>Пароль</label>
           <input
             className='login__input'
@@ -101,11 +86,11 @@ export default function Login() {
             placeholder='Введите пароль'
             name='password'
             id='login-password-input'
-            onChange={validatePassword}
+            onChange={handleChange}
             required
           />
           <span className='login__error'>
-            {isError
+            {isApiError
               ? 'Вы ввели неправильный логин или пароль.'
               : ''
             }

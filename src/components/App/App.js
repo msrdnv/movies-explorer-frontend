@@ -20,10 +20,10 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
 
-  if (isLoggedIn) {
+  /*if (isLoggedIn) {
     console.log(currentUser);
     console.log(localStorage.getItem('token'));
-  }
+  }*/
 
   React.useEffect(() => {
     mainApi.getCurrentUser(localStorage.getItem('token'))

@@ -61,6 +61,10 @@
   border-bottom: 1px solid #4285F4;
 }
 
+.profile__inputs:has(.profile__input_error:focus) {
+  border-bottom: 1px solid #EE3465;
+}
+
 .profile__inputs_place-under-bar {
   min-height: 46px;
   margin: 1px 0 0 0;

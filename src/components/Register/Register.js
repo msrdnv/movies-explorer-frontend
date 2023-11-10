@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Register.css'
 import logo from '../../images/logo.svg'
-import { errorMsgRegisterName, errorMsgEmail, emailRegex, nameRegex } from '../../utils/constants'
+import { ERROR_MSG_NAME, ERROR_MSG_EMAIL, EMAIL_REGEX, NAME_REGEX } from '../../utils/constants'
 import { mainApi } from '../../utils/MainApi'
 import { handleEmailConflictError, disableApiConflictErrors } from '../../utils/utils'
 import { useForm } from '../../hooks/useForm'
@@ -12,7 +12,7 @@ export default function Register() {
 
   const navigate = useNavigate();
   const { setCurrentUser, setIsLoggedIn } = React.useContext( CurrentUserContext );
-  const { values, handleChange } = useForm({name: '', email: ''});
+  const { values, handleChange } = useForm({name: '', email: '', password: ''});
 
   const [isNameValid, setIsNameValid] = React.useState(true);
   const [isEmailValid, setIsEmailValid] = React.useState(true);
@@ -24,58 +24,28 @@ export default function Register() {
 
   React.useEffect(() => {
     disableApiConflictErrors(setIsApiError, setIsEmailConflictError);
-    (values.name && values.email && values.password) && (isNameValid & isEmailValid & isPasswordValid)
+    (values.name && values.email && values.password) && (isNameValid && isEmailValid && isPasswordValid)
     ? setIsFormValid(true)
     : setIsFormValid(false);
   }, [isNameValid, isEmailValid, isPasswordValid, values])
 
   React.useEffect(() => {
-    nameRegex.test(values.name) && values.name.length > 2 && values.name.length <= 30
+    NAME_REGEX.test(values.name) && values.name.length > 2 && values.name.length <= 30
     ? setIsNameValid(true)
     : setIsNameValid(false)
   }, [values.name])
 
   React.useEffect(() => {
-    emailRegex.test(values.email)
+    EMAIL_REGEX.test(values.email)
     ? setIsEmailValid(true)
     : setIsEmailValid(false)
   }, [values.email])
 
   React.useEffect(() => {
-    values.email.length > 0
+    values.password.length > 0
     ? setIsPasswordValid(true)
     : setIsPasswordValid(false)
-  }, [values.email])
-
-  /*const validateName = (evt) => {
-    handleChange(evt);
-    const { value } = evt.target
-    if (nameRegex.test(value) && value.length > 2 && value.length <= 30) {
-      setIsNameValid(true);
-    } else {
-      setIsNameValid(false);
-    }
-  };*/
-
-  /*const validateEmail = (evt) => {
-    handleChange(evt);
-    const { value } = evt.target
-    if (emailRegex.test(value)) {
-      setIsEmailValid(true);
-    } else {
-      setIsEmailValid(false);
-    }
-  };*/
-
-  /*const validatePassword = (evt) => {
-    handleChange(evt);
-    const { value } = evt.target
-    if (value.length > 0) {
-      setIsPasswordValid(true);
-    } else {
-      setIsPasswordValid(false);
-    }
-  }*/
+  }, [values.password])
 
   const handleRegisterSubmitButton = ({ email, password, name }) => {
     disableApiConflictErrors(setIsApiError, setIsEmailConflictError);
@@ -117,7 +87,7 @@ export default function Register() {
             maxLength={30}
             required
           />
-          <span className='register__error'>{isNameValid ? '' : errorMsgRegisterName}</span>
+          <span className='register__error'>{(values.name.length === 0 ? '' : (isNameValid ? '' : ERROR_MSG_NAME))}</span>
           <label className='register__label' htmlFor='register-email-input'>E-mail</label>
           <input
             className='register__input'
@@ -128,7 +98,7 @@ export default function Register() {
             onChange={handleChange}
             required
           />
-          <span className='register__error'>{isEmailValid ? '' : errorMsgEmail}</span>
+          <span className='register__error'>{(values.email.length === 0 ? '' : (isEmailValid ? '' : ERROR_MSG_EMAIL))}</span>
           <label className='register__label' htmlFor='register-password-input'>Пароль</label>
           <input
             className='register__input'
