@@ -12,11 +12,11 @@ export default function Register() {
 
   const navigate = useNavigate();
   const { setCurrentUser, setIsLoggedIn } = React.useContext( CurrentUserContext );
-  const { values, handleChange } = useForm();
+  const { values, handleChange } = useForm({name: '', email: ''});
 
   const [isNameValid, setIsNameValid] = React.useState(true);
   const [isEmailValid, setIsEmailValid] = React.useState(true);
-  const [isPasswordValid, setIsPasswordValid] = React.useState(true);
+  const [isPasswordValid, setIsPasswordValid] = React.useState(false);
   const [isFormValid, setIsFormValid] = React.useState(false);
 
   const [isApiError, setIsApiError] = React.useState(false);
