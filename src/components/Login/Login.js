@@ -1,16 +1,12 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Login.css'
 import logo from '../../images/logo.svg'
 import { ERROR_MSG_EMAIL, EMAIL_REGEX } from '../../utils/constants'
-import { mainApi } from '../../utils/MainApi'
 import { useForm } from '../../hooks/useForm'
-import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
-export default function Login() {
+export default function Login({onLogin}) {
 
-  const navigate = useNavigate();
-  const { setIsLoggedIn } = React.useContext( CurrentUserContext );
   const { values, handleChange } = useForm({email: '', password: ''});
 
   const [isEmailValid, setIsEmailValid] = React.useState(false);
@@ -38,26 +34,12 @@ export default function Login() {
     : setIsPasswordValid(false);
   }, [values.password])
 
-  const handleLoginSubmitButton = ({ email, password }) => {
-    setIsApiError(false)
-    mainApi.login({ email, password })
-    .then((data) => {
-      setIsLoggedIn(true);
-      localStorage.setItem('token', data.token);
-      navigate('/movies');
-    })
-    .catch((err) => {
-        setIsApiError(true)
-        console.log(err)
-    })
-  }
-
-  function handleSubmit(evt) {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    handleLoginSubmitButton({
+    onLogin({
       email: values.email,
       password: values.password,
-    });
+    }, setIsApiError);
   }
 
   return (

@@ -10,7 +10,7 @@ export default function SearchForm({ defaultValue, defaultChecked, onSubmit, onV
           <input
             className='search-form__input'
             name='search'
-            defaultValue={defaultValue || ''}
+            defaultValue={defaultValue}
             type='text' placeholder='Фильм'
             onChange={onValidate}
             onInvalid={onValidate}
@@ -23,7 +23,7 @@ export default function SearchForm({ defaultValue, defaultChecked, onSubmit, onV
             <input
               className='search-form__invisible-checkbox'
               name='checkbox'
-              defaultChecked={defaultChecked || false}
+              defaultChecked={defaultChecked}
               type='checkbox'
               onChange={handleCheckbox}
             />

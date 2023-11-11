@@ -8,45 +8,38 @@ import Footer from '../Footer/Footer'
 import { ERROR_MSG_SEARCH } from '../../utils/constants.js'
 import { setCustomErrorMsg } from '../../utils/utils.js'
 import { moviesApi } from '../../utils/MoviesApi'
+import { mainApi } from '../../utils/MainApi'
 import { useForm } from '../../hooks/useForm'
 
 export default function Movies() {
 
+  const apiMovies = JSON.parse(localStorage.getItem('api-movies'))
+  // const savedMovies = JSON.parse(localStorage.getItem('saved-movies')) || []
+  //console.log(savedMovies)
+  const lastSearch = localStorage.getItem('last-search-query')
+  const lastCheckboxState = JSON.parse(localStorage.getItem('last-checkbox-state'))
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [isApiError, setIsApiError] = React.useState(false);
-  const { values, handleChange, setValues } = useForm();
+  const { values, handleChange, setValues } = useForm({search: lastSearch, checkbox: lastCheckboxState});
 
-  const filteredMovies = JSON.parse(localStorage.getItem('filtered-movies')) || []
+  const [filteredMovies, setFilteredMovies] = React.useState([])
 
-  const handleSubmitSearchForm = (evt) => {
-    evt.preventDefault()
-    setIsLoading(true)
-    setIsApiError(false)
-    moviesApi.getMovies()
-    .then((data) => {
-      const search = values.search;
-      const checkbox = values.checkbox;
-      const filteredMovies = data.filter((item) => {
-        if (checkbox === true) {
-          return item.nameRU.startsWith(search) && item.duration <= 40
-        } else {
-          return item.nameRU.startsWith(search)
-        }
-      })
-      localStorage.setItem('last-search-query', search)
-      localStorage.setItem('last-checkbox-state', JSON.stringify(checkbox))
-      localStorage.setItem('filtered-movies', JSON.stringify(filteredMovies))
+  const filterMovies = (items) => {
+    const foundMovies = items.filter((item) => {
+      if (values.checkbox === true) {
+        return item.nameRU.toLowerCase().startsWith(values.search.toLowerCase()) && item.duration <= 40
+      } else {
+        return item.nameRU.toLowerCase().startsWith(values.search.toLowerCase())
+      }
     })
-    .catch((err) => {
-      setIsApiError(true)
-      console.log(err)
-    })
-    .finally(() => setIsLoading(false));
+    const sortedMovies = [...foundMovies].sort((a, b) => a.nameRU > b.nameRU ? 1 : -1);
+    setFilteredMovies(sortedMovies);
   }
 
-  const validateSearchForm = (evt) => {
-    handleChange(evt);
-    setCustomErrorMsg(evt, ERROR_MSG_SEARCH);
+  const saveLastSearchParams = () => {
+    localStorage.setItem('last-search-query', values.search)
+    localStorage.setItem('last-checkbox-state', JSON.stringify(values.checkbox))
   }
 
   const handleCheckbox = (evt) => {
@@ -54,18 +47,71 @@ export default function Movies() {
     setValues({...values, [name]: checked});
   }
 
+  const validateSearchForm = (evt) => {
+    handleChange(evt);
+    setCustomErrorMsg(evt, ERROR_MSG_SEARCH);
+  }
+
+  const handleSubmitSearchForm = (evt) => {
+    if (apiMovies === null) {
+    evt.preventDefault()
+    setIsLoading(true)
+    setIsApiError(false)
+    moviesApi.getMovies()
+    .then((data) => {
+      localStorage.setItem('api-movies', JSON.stringify(data))
+      saveLastSearchParams()
+      filterMovies(data)
+    })
+    .catch((err) => {
+      setIsApiError(true)
+      console.log(err)
+    })
+    .finally(() => setIsLoading(false));
+    } else {
+      evt.preventDefault()
+      saveLastSearchParams()
+      filterMovies(apiMovies)
+    }
+  }
+
+  const handleSaveCard = (card, setIsSaved) => {
+    setIsApiError(false)
+    mainApi.postNewMovie({
+      country: card.country,
+      director: card.director,
+      duration: card.duration,
+      year: card.year,
+      description: card.description,
+      image: `https://api.nomoreparties.co${card.image.url}`,
+      trailerLink: card.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
+      movieId: card.id,
+      nameRU: card.nameRU,
+      nameEN: card.nameEN
+    }, localStorage.getItem('token'))
+    .then((data) => {
+      console.log(data)
+      setIsSaved(true)
+    })
+    .catch((err) => {
+      setIsApiError(true)
+      console.log(err)
+    })
+  }
+
   return (
     <>
       <Header/>
       <main className='movies'>
         <SearchForm
-          defaultValue={localStorage.getItem('last-search-query')}
-          defaultChecked={localStorage.getItem('last-checkbox-state')}
+          defaultValue={lastSearch}
+          defaultChecked={lastCheckboxState}
           onSubmit={handleSubmitSearchForm}
           onValidate={validateSearchForm}
           handleCheckbox={handleCheckbox}
         />
-        {isLoading ? <Preloader/> : <MoviesCardList movies={filteredMovies} isApiError={isApiError}/>}
+        {isLoading ? <Preloader/> : <MoviesCardList movies={filteredMovies} handleClickCard={handleSaveCard} isApiError={isApiError}/>}
       </main>
       <Footer/>
     </>

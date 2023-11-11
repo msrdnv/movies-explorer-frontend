@@ -1,17 +1,13 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Register.css'
 import logo from '../../images/logo.svg'
 import { ERROR_MSG_NAME, ERROR_MSG_EMAIL, EMAIL_REGEX, NAME_REGEX } from '../../utils/constants'
-import { mainApi } from '../../utils/MainApi'
-import { handleEmailConflictError, disableApiConflictErrors } from '../../utils/utils'
+import { disableApiConflictErrors } from '../../utils/utils'
 import { useForm } from '../../hooks/useForm'
-import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
-export default function Register() {
+export default function Register({onRegister}) {
 
-  const navigate = useNavigate();
-  const { setCurrentUser, setIsLoggedIn } = React.useContext( CurrentUserContext );
   const { values, handleChange } = useForm({name: '', email: '', password: ''});
 
   const [isNameValid, setIsNameValid] = React.useState(true);
@@ -47,24 +43,13 @@ export default function Register() {
     : setIsPasswordValid(false)
   }, [values.password])
 
-  const handleRegisterSubmitButton = ({ email, password, name }) => {
-    disableApiConflictErrors(setIsApiError, setIsEmailConflictError);
-    mainApi.register({ email, password, name })
-    .then((data) => {
-      setIsLoggedIn(true);
-      setCurrentUser(data);
-      navigate('/movies');
-    })
-    .catch((err) => handleEmailConflictError(err, setIsApiError, setIsEmailConflictError))
-  }
-
-  function handleSubmit(evt) {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    handleRegisterSubmitButton({
+    onRegister({
       email: values.email,
       password: values.password,
       name: values.name,
-    });
+    }, setIsApiError, setIsEmailConflictError);
   }
 
   return (
