@@ -1,7 +1,14 @@
 import React from 'react'
 import './SearchForm.css'
+import { ERROR_MSG_SEARCH } from '../../utils/constants.js'
+import { setCustomErrorMsg } from '../../utils/utils.js'
 
-export default function SearchForm({ defaultValue, defaultChecked, onSubmit, onValidate, handleCheckbox }) {
+export default function SearchForm({ defaultValue, defaultChecked, onSubmit, handleChange, handleCheckbox }) {
+
+  const onValidate = (evt) => {
+    handleChange(evt);
+    setCustomErrorMsg(evt, ERROR_MSG_SEARCH);
+  }
 
   return (
     <div className='search-form'>

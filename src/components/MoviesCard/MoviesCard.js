@@ -8,7 +8,7 @@ export default function MoviesCard({onClick, card}) {
   const [isSaved, setIsSaved] = React.useState(false);
 
   const handleClick = () => {
-    onClick(card, setIsSaved)
+    onClick(card, isSaved, setIsSaved)
   }
 
   return (
@@ -22,7 +22,6 @@ export default function MoviesCard({onClick, card}) {
           : ((location.pathname === '/movies' && isSaved) ? 'movies-card__button movies-card__button_saved' : 'movies-card__button')}
         type='button'
         onClick={handleClick}
-        disabled={isSaved}
       >{(location.pathname === '/movies' && !isSaved) ? 'Cохранить' : ''}</button>
     </>
   );

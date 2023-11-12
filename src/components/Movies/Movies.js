@@ -5,8 +5,7 @@ import SearchForm from '../SearchForm/SearchForm'
 import Preloader from '../Preloader/Preloader'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Footer from '../Footer/Footer'
-import { ERROR_MSG_SEARCH } from '../../utils/constants.js'
-import { setCustomErrorMsg } from '../../utils/utils.js'
+import { saveMovies, ignoreNotFoundSavedCardsError, handleApiError, filterMovies } from '../../utils/utils.js'
 import { moviesApi } from '../../utils/MoviesApi'
 import { mainApi } from '../../utils/MainApi'
 import { useForm } from '../../hooks/useForm'
@@ -14,43 +13,31 @@ import { useForm } from '../../hooks/useForm'
 export default function Movies() {
 
   const apiMovies = JSON.parse(localStorage.getItem('api-movies'))
-  // const savedMovies = JSON.parse(localStorage.getItem('saved-movies')) || []
-  //console.log(savedMovies)
+
   const lastSearch = localStorage.getItem('last-search-query')
   const lastCheckboxState = JSON.parse(localStorage.getItem('last-checkbox-state'))
-
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isApiError, setIsApiError] = React.useState(false);
-  const { values, handleChange, setValues } = useForm({search: lastSearch, checkbox: lastCheckboxState});
-
-  const [filteredMovies, setFilteredMovies] = React.useState([])
-
-  const filterMovies = (items) => {
-    const foundMovies = items.filter((item) => {
-      if (values.checkbox === true) {
-        return item.nameRU.toLowerCase().startsWith(values.search.toLowerCase()) && item.duration <= 40
-      } else {
-        return item.nameRU.toLowerCase().startsWith(values.search.toLowerCase())
-      }
-    })
-    const sortedMovies = [...foundMovies].sort((a, b) => a.nameRU > b.nameRU ? 1 : -1);
-    setFilteredMovies(sortedMovies);
-  }
 
   const saveLastSearchParams = () => {
     localStorage.setItem('last-search-query', values.search)
     localStorage.setItem('last-checkbox-state', JSON.stringify(values.checkbox))
   }
 
-  const handleCheckbox = (evt) => {
-    const {checked, name} = evt.target;
-    setValues({...values, [name]: checked});
-  }
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isApiError, setIsApiError] = React.useState(false);
+  const { values, handleChange, handleCheckbox } = useForm({search: lastSearch, checkbox: lastCheckboxState});
 
-  const validateSearchForm = (evt) => {
-    handleChange(evt);
-    setCustomErrorMsg(evt, ERROR_MSG_SEARCH);
-  }
+  const [currentMovies, setCurrentMovies] = React.useState([])
+  const [savedMovies, setSavedMovies] = React.useState([])
+
+  console.log(savedMovies)
+  console.log(currentMovies)
+
+  React.useEffect(() => {
+    setIsApiError(false)
+    mainApi.getSavedMovies(localStorage.getItem('token'))
+    .then((data) => saveMovies(data, setSavedMovies))
+    .catch((err) => ignoreNotFoundSavedCardsError(err, setIsApiError))
+  }, [])
 
   const handleSubmitSearchForm = (evt) => {
     if (apiMovies === null) {
@@ -61,43 +48,51 @@ export default function Movies() {
     .then((data) => {
       localStorage.setItem('api-movies', JSON.stringify(data))
       saveLastSearchParams()
-      filterMovies(data)
+      filterMovies(data, values, setCurrentMovies)
     })
-    .catch((err) => {
-      setIsApiError(true)
-      console.log(err)
-    })
+    .catch((err) => handleApiError(err, setIsApiError))
     .finally(() => setIsLoading(false));
     } else {
       evt.preventDefault()
       saveLastSearchParams()
-      filterMovies(apiMovies)
+      filterMovies(apiMovies, values, setCurrentMovies)
     }
   }
 
-  const handleSaveCard = (card, setIsSaved) => {
-    setIsApiError(false)
-    mainApi.postNewMovie({
-      country: card.country,
-      director: card.director,
-      duration: card.duration,
-      year: card.year,
-      description: card.description,
-      image: `https://api.nomoreparties.co${card.image.url}`,
-      trailerLink: card.trailerLink,
-      thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
-      movieId: card.id,
-      nameRU: card.nameRU,
-      nameEN: card.nameEN
-    }, localStorage.getItem('token'))
-    .then((data) => {
-      console.log(data)
-      setIsSaved(true)
-    })
-    .catch((err) => {
-      setIsApiError(true)
-      console.log(err)
-    })
+  const handleToggleCard = (card, isSaved, setIsSaved) => {
+    if (isSaved) {
+      setIsApiError(false)
+      mainApi.getSavedMovies(localStorage.getItem('token'))
+      .then((data) => {
+        saveMovies(data, setSavedMovies)
+        const deleteMovies = data.filter((item) => item.nameRU === card.nameRU)
+        setIsApiError(false)
+        mainApi.deleteMovie(deleteMovies[0].id, localStorage.getItem('token'))
+        .then(() => {
+          saveMovies(savedMovies.filter((item) => item.id !== card.id), setSavedMovies)
+          setIsSaved(false)
+        })
+        .catch((err) => handleApiError(err, setIsApiError))
+      })
+      .catch((err) => ignoreNotFoundSavedCardsError(err, setIsApiError))
+    } else {
+      setIsApiError(false)
+      mainApi.postNewMovie({
+        country: card.country,
+        director: card.director,
+        duration: card.duration,
+        year: card.year,
+        description: card.description,
+        image: `https://api.nomoreparties.co${card.image.url}`,
+        trailerLink: card.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
+        movieId: card.id,
+        nameRU: card.nameRU,
+        nameEN: card.nameEN
+      }, localStorage.getItem('token'))
+      .then(() => setIsSaved(true))
+      .catch((err) => handleApiError(err, setIsApiError))
+    }
   }
 
   return (
@@ -108,10 +103,10 @@ export default function Movies() {
           defaultValue={lastSearch}
           defaultChecked={lastCheckboxState}
           onSubmit={handleSubmitSearchForm}
-          onValidate={validateSearchForm}
+          handleChange={handleChange}
           handleCheckbox={handleCheckbox}
         />
-        {isLoading ? <Preloader/> : <MoviesCardList movies={filteredMovies} handleClickCard={handleSaveCard} isApiError={isApiError}/>}
+        {isLoading ? <Preloader/> : <MoviesCardList movies={currentMovies} handleClickCard={handleToggleCard} isApiError={isApiError}/>}
       </main>
       <Footer/>
     </>

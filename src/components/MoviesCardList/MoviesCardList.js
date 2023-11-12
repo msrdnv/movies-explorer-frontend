@@ -1,11 +1,9 @@
 import React from 'react'
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
-import { useLocation } from 'react-router-dom'
 
 export default function MoviesCardList({ movies, handleClickCard, isApiError }) {
 
-  const location = useLocation();
   const [currentCardNumber, setCurrentCardNumber] = React.useState(0)
 
   const [width, setWidth] = React.useState(window.innerWidth);
@@ -77,7 +75,7 @@ export default function MoviesCardList({ movies, handleClickCard, isApiError }) 
             }
           </span>)
       }
-      {(location.pathname === '/movies') && (currentCardNumber >= initialMaxCardNumber) && (currentCardNumber < movies.length)
+      {(currentCardNumber >= initialMaxCardNumber) && (currentCardNumber < movies.length)
         ? (<button className='movies-card-list__more-button' type='button' onClick={handleMoreButton}>Ещё</button>)
         : (<div className='movies-card-list__devider'/>)
       }

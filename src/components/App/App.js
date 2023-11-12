@@ -11,7 +11,7 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import ProtectedRoute from '../../utils/ProtectedRoute'
 import { mainApi } from '../../utils/MainApi'
-import { handleEmailConflictError, disableApiConflictErrors } from '../../utils/utils'
+import { handleApiError, handleEmailConflictError, disableApiConflictErrors } from '../../utils/utils'
 
 export default function App() {
 
@@ -48,10 +48,7 @@ export default function App() {
       localStorage.setItem('token', data.token);
       navigate('/movies');
     })
-    .catch((err) => {
-        setIsApiError(true)
-        console.log(err)
-    })
+    .catch((err) => handleApiError(err, setIsApiError))
   }
 
   const handleRegister = ({ email, password, name }, setIsApiError, setIsEmailConflictError) => {
@@ -60,7 +57,6 @@ export default function App() {
     .then(() => handleLogin({ email, password }, setIsApiError))
     .catch((err) => handleEmailConflictError(err, setIsApiError, setIsEmailConflictError))
   }
-
 
   return (
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn}}>

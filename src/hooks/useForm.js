@@ -7,5 +7,11 @@ export function useForm(inputValues={}) {
     const {value, name} = evt.target;
     setValues({...values, [name]: value});
   };
-  return {values, handleChange, setValues};
+
+  const handleCheckbox = (evt) => {
+    const {checked, name} = evt.target;
+    setValues({...values, [name]: checked});
+  };
+
+  return {values, handleChange, handleCheckbox, setValues};
 }
