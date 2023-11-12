@@ -10,7 +10,7 @@ export default function MoviesCard({movies, onClick, card}) {
   const savedMovies = JSON.parse(localStorage.getItem('api-saved-movies'));
 
   React.useEffect(() => {
-    if ((location.pathname === '/movies') && (movies !== undefined) && (savedMovies !== null)) {
+    if ((location.pathname === '/movies') && (savedMovies !== null)) {
       const filteredMovies = movies.filter((item1) => savedMovies.some((item2) => item1.nameRU === item2.nameRU))
       filteredMovies.forEach((item) => {
         if (item.nameRU === card.nameRU) {

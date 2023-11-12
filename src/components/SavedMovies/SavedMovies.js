@@ -33,12 +33,14 @@ export default function SavedMovies() {
 
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault()
-    setLastSearch(values.search);
-    setCurrentMovies(filterMovies(apiSavedMovies, values))
+    if (apiSavedMovies !== null) {
+      setLastSearch(values.search);
+      setCurrentMovies(filterMovies(apiSavedMovies, values))
+    }
   }
 
   const handleCheckboxClick = (evt) => {
-    if ((currentMovies !== null) && (lastSearch !== undefined)) {
+    if ((apiSavedMovies !== null) && (currentMovies > 0) && (lastSearch !== undefined)) {
       setCurrentMovies(filterMovies(apiSavedMovies, { search: lastSearch, checkbox: evt.target.checked}))
     }
   }
