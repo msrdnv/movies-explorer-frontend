@@ -42,7 +42,7 @@ export const handleApiError = (err, setIsApiError) => {
   console.log(err)
 }
 
-export const filterMovies = (items, values, setCurrentMovies) => {
+export const filterMovies = (items, values) => {
   const foundMovies = items.filter((item) => {
     if (values.checkbox === true) {
       return (item.nameRU.toLowerCase().startsWith(values.search.toLowerCase()) || item.nameEN.toLowerCase().startsWith(values.search.toLowerCase())) && item.duration <= 40
@@ -51,5 +51,5 @@ export const filterMovies = (items, values, setCurrentMovies) => {
     }
   })
   const sortedMovies = [...foundMovies].sort((a, b) => a.nameRU > b.nameRU ? 1 : -1);
-  setCurrentMovies(sortedMovies);
+  return sortedMovies;
 }

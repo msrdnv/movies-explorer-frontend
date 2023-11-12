@@ -15,6 +15,7 @@ export default function SavedMovies() {
   const [isApiError, setIsApiError] = React.useState(false);
   const [currentMovies, setCurrentMovies] = React.useState([])
   const { values, handleChange, handleCheckbox } = useForm({search: '', checkbox: false});
+  const [lastSearch, setLastSearch] = React.useState('')
 
   React.useEffect(() => {
     setIsApiError(false)
@@ -32,14 +33,21 @@ export default function SavedMovies() {
 
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault()
-    filterMovies(apiSavedMovies, values, setCurrentMovies)
+    setLastSearch(values.search);
+    setCurrentMovies(filterMovies(apiSavedMovies, values))
+  }
+
+  const handleCheckboxClick = (evt) => {
+    if ((currentMovies !== null) && (lastSearch !== undefined)) {
+      setCurrentMovies(filterMovies(apiSavedMovies, { search: lastSearch, checkbox: evt.target.checked}))
+    }
   }
 
   return (
     <>
       <Header/>
       <main className='saved-movies'>
-        <SearchForm onSubmit={handleSubmitSearchForm} handleCheckbox={handleCheckbox} handleChange={handleChange}/>
+        <SearchForm onSubmit={handleSubmitSearchForm} handleCheckbox={handleCheckbox} handleCheckboxClick={handleCheckboxClick} handleChange={handleChange}/>
         <MoviesCardList movies={currentMovies} handleClickCard={handleDeleteCard} isApiError={isApiError}/>
       </main>
       <Footer/>

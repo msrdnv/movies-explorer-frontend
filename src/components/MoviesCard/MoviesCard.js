@@ -28,7 +28,9 @@ export default function MoviesCard({movies, onClick, card}) {
     <>
       <h2 className='movies-card__name'>{card.nameRU}</h2>
       <p className='movies-card__duration'>{`${Math.floor(card.duration / 60)}ч ${card.duration % 60}м`}</p>
-      <img className='movies-card__image' src={location.pathname === '/movies' ? `https://api.nomoreparties.co/${card.image.url}` : card.image} alt={card.nameRU}/>
+      <a className='movies-card__image-link' href={card.trailerLink} target='_blank' rel='noreferrer'>
+        <img className='movies-card__image' src={location.pathname === '/movies' ? `https://api.nomoreparties.co/${card.image.url}` : card.image} alt={card.nameRU}/>
+      </a>
       <button
         className={location.pathname === '/saved-movies'
           ? 'movies-card__button movies-card__button_delete'

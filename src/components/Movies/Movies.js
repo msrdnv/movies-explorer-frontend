@@ -16,17 +16,13 @@ export default function Movies() {
 
   const lastSearch = localStorage.getItem('last-search-query')
   const lastCheckboxState = JSON.parse(localStorage.getItem('last-checkbox-state'))
-
-  const saveLastSearchParams = () => {
-    localStorage.setItem('last-search-query', values.search)
-    localStorage.setItem('last-checkbox-state', JSON.stringify(values.checkbox))
-  }
+  const lastMoviesResult = JSON.parse(localStorage.getItem('last-movies-result'))
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [isApiError, setIsApiError] = React.useState(false);
   const { values, handleChange, handleCheckbox } = useForm({search: lastSearch, checkbox: lastCheckboxState});
 
-  const [currentMovies, setCurrentMovies] = React.useState([])
+  const [currentMovies, setCurrentMovies] = React.useState(lastMoviesResult !== null ? lastMoviesResult : [])
   const [savedMovies, setSavedMovies] = React.useState([])
 
   React.useEffect(() => {
@@ -36,6 +32,18 @@ export default function Movies() {
     .catch((err) => ignoreNotFoundSavedCardsError(err, setIsApiError))
   }, [])
 
+  const saveLastSearchParams = (movies) => {
+    localStorage.setItem('last-search-query', values.search)
+    localStorage.setItem('last-checkbox-state', JSON.stringify(values.checkbox))
+    localStorage.setItem('last-movies-result', JSON.stringify(movies))
+  }
+
+  const handleCheckboxClick = (evt) => {
+    if ((lastMoviesResult !== null) && (lastSearch !== null)) {
+      setCurrentMovies(filterMovies(apiMovies, { search: lastSearch, checkbox: evt.target.checked}))
+    }
+  }
+
   const handleSubmitSearchForm = (evt) => {
     if (apiMovies === null) {
     evt.preventDefault()
@@ -44,15 +52,17 @@ export default function Movies() {
     moviesApi.getMovies()
     .then((data) => {
       localStorage.setItem('api-movies', JSON.stringify(data))
-      saveLastSearchParams()
-      filterMovies(data, values, setCurrentMovies)
+      const filteredMovies = filterMovies(data, values)
+      setCurrentMovies(filteredMovies)
+      saveLastSearchParams(filteredMovies)
     })
     .catch((err) => handleApiError(err, setIsApiError))
     .finally(() => setIsLoading(false));
     } else {
       evt.preventDefault()
-      saveLastSearchParams()
-      filterMovies(apiMovies, values, setCurrentMovies)
+      const filteredMovies = filterMovies(apiMovies, values)
+      setCurrentMovies(filteredMovies)
+      saveLastSearchParams(filteredMovies)
     }
   }
 
@@ -107,6 +117,7 @@ export default function Movies() {
           onSubmit={handleSubmitSearchForm}
           handleChange={handleChange}
           handleCheckbox={handleCheckbox}
+          handleCheckboxClick={handleCheckboxClick}
         />
         {isLoading ? <Preloader/> : <MoviesCardList movies={currentMovies} handleClickCard={handleToggleCard} isApiError={isApiError}/>}
       </main>
