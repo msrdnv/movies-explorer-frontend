@@ -2,10 +2,23 @@ import React from 'react'
 import './MoviesCard.css'
 import { useLocation } from 'react-router-dom'
 
-export default function MoviesCard({onClick, card}) {
+export default function MoviesCard({movies, onClick, card}) {
 
   const location = useLocation();
   const [isSaved, setIsSaved] = React.useState(false);
+
+  const savedMovies = JSON.parse(localStorage.getItem('api-saved-movies'));
+
+  React.useEffect(() => {
+    if ((location.pathname === '/movies') && (movies !== undefined)) {
+      const filteredMovies = movies.filter((item1) => savedMovies.some((item2) => item1.nameRU === item2.nameRU))
+      filteredMovies.forEach((item) => {
+        if (item.nameRU === card.nameRU) {
+          setIsSaved(true)
+        }
+      })
+    }
+  }, [movies, savedMovies, location.pathname, card.nameRU])
 
   const handleClick = () => {
     onClick(card, isSaved, setIsSaved)

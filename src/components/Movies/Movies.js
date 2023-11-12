@@ -29,9 +29,6 @@ export default function Movies() {
   const [currentMovies, setCurrentMovies] = React.useState([])
   const [savedMovies, setSavedMovies] = React.useState([])
 
-  console.log(savedMovies)
-  console.log(currentMovies)
-
   React.useEffect(() => {
     setIsApiError(false)
     mainApi.getSavedMovies(localStorage.getItem('token'))
@@ -64,13 +61,12 @@ export default function Movies() {
       setIsApiError(false)
       mainApi.getSavedMovies(localStorage.getItem('token'))
       .then((data) => {
-        saveMovies(data, setSavedMovies)
         const deleteMovies = data.filter((item) => item.nameRU === card.nameRU)
         setIsApiError(false)
         mainApi.deleteMovie(deleteMovies[0].id, localStorage.getItem('token'))
         .then(() => {
-          saveMovies(savedMovies.filter((item) => item.id !== card.id), setSavedMovies)
           setIsSaved(false)
+          saveMovies(savedMovies.filter((item) => item.id !== deleteMovies[0].id), setSavedMovies)
         })
         .catch((err) => handleApiError(err, setIsApiError))
       })
@@ -90,7 +86,13 @@ export default function Movies() {
         nameRU: card.nameRU,
         nameEN: card.nameEN
       }, localStorage.getItem('token'))
-      .then(() => setIsSaved(true))
+      .then(() => {
+        setIsSaved(true)
+        setIsApiError(false)
+        mainApi.getSavedMovies(localStorage.getItem('token'))
+        .then((data) => saveMovies(data, setSavedMovies))
+        .catch((err) => ignoreNotFoundSavedCardsError(err, setIsApiError))
+      })
       .catch((err) => handleApiError(err, setIsApiError))
     }
   }

@@ -2,17 +2,13 @@ import React from 'react'
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 
-export default function MoviesCardList({ movies, handleClickCard, isApiError }) {
+export default function MoviesCardList({ movies, handleClickCard, isApiError}) {
 
-  const [currentCardNumber, setCurrentCardNumber] = React.useState(0)
+  const [currentCardNumber, setCurrentCardNumber] = React.useState(0);
 
   const [width, setWidth] = React.useState(window.innerWidth);
   const [initialMaxCardNumber, setInitialMaxCardNumber] = React.useState(0);
   const [extraRowCardNumber, setExtraRowCardNumber] = React.useState(0);
-
-  //console.log(`Максимальное количество карточек - ${initialMaxCardNumber}`)
-  //console.log(`Количество переданных карточек - ${movies.length}`)
-  //console.log(`Количество отрисованных карточек - ${currentCardNumber}`)
 
   React.useLayoutEffect(() => {
     (movies.length < initialMaxCardNumber)
@@ -59,7 +55,7 @@ export default function MoviesCardList({ movies, handleClickCard, isApiError }) 
     let content = []
     for (let i = 0; i < cardNumber; i++) {
       const item = movies[i]
-      content.push(<li key={item.id} className='movies-card'><MoviesCard onClick={handleClickCard} card={item}/></li>)
+      content.push(<li key={item.id} className='movies-card'><MoviesCard onClick={handleClickCard} card={item} movies={movies}/></li>)
     }
     return content
   };

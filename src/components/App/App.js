@@ -19,14 +19,17 @@ export default function App() {
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useLayoutEffect(() => {
+    setIsLoading(true)
     mainApi.getCurrentUser(localStorage.getItem('token'))
     .then((data) => {
       setCurrentUser(data)
       setIsLoggedIn(true);
     })
     .catch(console.error)
+    .finally(() => setIsLoading(false))
   }, [isLoggedIn]);
 
   const handleProfileLogout = () => {
@@ -60,7 +63,7 @@ export default function App() {
 
   return (
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn}}>
-      <Routes>
+      {!isLoading ? <Routes>
         <Route path="/" element={<Main/>}/>
         <Route path="/movies" element={<ProtectedRoute element={Movies} isLoggedIn={isLoggedIn}/>}/>
         <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} isLoggedIn={isLoggedIn}/>}/>
@@ -68,7 +71,7 @@ export default function App() {
         <Route path="/signin" element={<ProtectedRoute element={Login} isLoggedIn={!isLoggedIn} onLogin={handleLogin} />}/>
         <Route path="/signup" element={<ProtectedRoute element={Register} isLoggedIn={!isLoggedIn} onRegister={handleRegister}/>}/>
         <Route path="*" element={<NotFoundPage onReturn={handleReturn}/>} />
-      </Routes>
+      </Routes> : ''}
     </CurrentUserContext.Provider>
   );
 };
