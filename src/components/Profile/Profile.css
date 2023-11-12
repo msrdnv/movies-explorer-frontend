@@ -106,6 +106,10 @@
   line-height: 1.21;
 }
 
+.profile__error_success {
+  color: #FFF;
+}
+
 @media screen and (max-width: 1080px) and (min-width: 635px) {
   .profile__error {
     margin: 153px 0 0 0;

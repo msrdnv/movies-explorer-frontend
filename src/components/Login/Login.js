@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Login.css'
 import logo from '../../images/logo.svg'
-import { ERROR_MSG_EMAIL, EMAIL_REGEX } from '../../utils/constants'
+import { ERROR_MSG_EMAIL, EMAIL_REGEX, ERROR_MSG_LOGIN } from '../../utils/constants'
 import { useForm } from '../../hooks/useForm'
 
 export default function Login({onLogin}) {
@@ -73,7 +73,7 @@ export default function Login({onLogin}) {
           />
           <span className='login__error'>
             {isApiError
-              ? 'Вы ввели неправильный логин или пароль.'
+              ? ERROR_MSG_LOGIN
               : ''
             }
           </span>

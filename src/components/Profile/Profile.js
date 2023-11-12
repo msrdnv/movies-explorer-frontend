@@ -2,7 +2,7 @@ import React from 'react'
 import './Profile.css'
 import Header from '../Header/Header'
 import { mainApi } from '../../utils/MainApi'
-import { EMAIL_REGEX, NAME_REGEX } from '../../utils/constants'
+import { EMAIL_REGEX, NAME_REGEX, ERROR_MSG_EMAIL_CONFLICT, ERROR_MSG_PROFILE, SUCCESS_MSG_PROFILE } from '../../utils/constants'
 import { handleEmailConflictError, disableApiConflictErrors } from '../../utils/utils'
 import { useForm } from '../../hooks/useForm'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
@@ -18,6 +18,7 @@ export default function Profile({ onLogout }) {
 
   const [isApiError, setIsApiError] = React.useState(false);
   const [isEmailConflictError, setIsEmailConflictError] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(false);
 
   React.useEffect(() => {
     disableApiConflictErrors(setIsApiError, setIsEmailConflictError);
@@ -27,21 +28,27 @@ export default function Profile({ onLogout }) {
   }, [isNameValid, isEmailValid, currentUser.email, currentUser.name, values])
 
   React.useEffect(() => {
+    setIsSuccess(false)
     NAME_REGEX.test(values.name) && values.name.length > 2 && values.name.length <= 30
     ? setIsNameValid(true)
     : setIsNameValid(false)
   }, [values.name])
 
   React.useEffect(() => {
+    setIsSuccess(false)
     EMAIL_REGEX.test(values.email)
     ? setIsEmailValid(true)
     : setIsEmailValid(false)
   }, [values.email])
 
   const handleEditProfile = ({ name, email }) => {
+    setIsSuccess(false)
     disableApiConflictErrors(setIsApiError, setIsEmailConflictError)
     mainApi.editCurrentUser({ name, email }, localStorage.getItem('token'))
-    .then((data) => setCurrentUser(data))
+    .then((data) => {
+      setCurrentUser(data)
+      setIsSuccess(true)
+    })
     .catch((err) => handleEmailConflictError(err, setIsApiError, setIsEmailConflictError))
   }
 
@@ -58,7 +65,7 @@ export default function Profile({ onLogout }) {
       <Header/>
       <main className='profile'>
         <section className='profile__container'>
-          <h1 className='profile__title'>Привет, {currentUser.name || 'Виталий'}!</h1>
+          <h1 className='profile__title'>Привет, {currentUser.name || 'Пользователь'}!</h1>
           <form className='profile__form' onSubmit={handleSubmit} noValidate>
             <div className='profile__inputs'>
               <label className='profile__label' htmlFor='profile-name'>Имя</label>
@@ -85,10 +92,10 @@ export default function Profile({ onLogout }) {
                 id='profile-email'
               />
             </div>
-            <span className='profile__error'>
-              {isApiError
-              ? (isEmailConflictError ? 'Пользователь с таким email уже существует.' : 'При обновлении профиля произошла ошибка.')
-              : ''
+            <span className={isSuccess ? 'profile__error profile__error_success' : 'profile__error'}>
+              {isSuccess ? SUCCESS_MSG_PROFILE : (isApiError
+              ? (isEmailConflictError ? ERROR_MSG_EMAIL_CONFLICT : ERROR_MSG_PROFILE)
+              : '')
             }</span>
             <button className={isFormValid ? 'profile__update-button' : 'profile__update-button profile__update-button_disabled'} type='submit' disabled={!isFormValid}>
               Редактировать

@@ -1,6 +1,7 @@
 import React from 'react'
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
+import { ERROR_MSG_API_ERROR, ERROR_MSG_NOT_FOUND } from '../../utils/constants'
 
 export default function MoviesCardList({ movies, handleClickCard, isApiError}) {
 
@@ -66,8 +67,8 @@ export default function MoviesCardList({ movies, handleClickCard, isApiError}) {
         ? (<ul className='movies-card-list__container'>{currentCardNumber <= movies.length ? renderCards(currentCardNumber) : ''}</ul>)
         : (<span className='movies-card-list__null-result'>
             {isApiError
-              ? 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-              : 'Ничего не найдено'
+              ? ERROR_MSG_API_ERROR
+              : ERROR_MSG_NOT_FOUND
             }
           </span>)
       }
