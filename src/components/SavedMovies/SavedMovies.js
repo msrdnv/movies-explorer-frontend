@@ -40,7 +40,7 @@ export default function SavedMovies() {
   }
 
   const handleCheckboxClick = (evt) => {
-    if ((apiSavedMovies !== null) && (currentMovies > 0) && (lastSearch !== undefined)) {
+    if ((apiSavedMovies !== null) && (currentMovies < 1) && (lastSearch !== undefined)) {
       setCurrentMovies(filterMovies(apiSavedMovies, { search: lastSearch, checkbox: evt.target.checked}))
     }
   }
