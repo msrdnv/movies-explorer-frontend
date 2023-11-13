@@ -104,6 +104,7 @@ export default function Movies({ savedMovies, saveMovies }) {
           handleChange={handleChange}
           handleCheckbox={handleCheckbox}
           handleCheckboxClick={handleCheckboxClick}
+          onDisable={isLoading}
         />
         {isLoading
           ? <Preloader/>

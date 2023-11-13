@@ -13,6 +13,7 @@ export default function Login({onLogin}) {
   const [isPasswordValid, setIsPasswordValid] = React.useState(false);
   const [isFormValid, setIsFormValid] = React.useState(false);
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const [isApiError, setIsApiError] = React.useState(false);
 
   React.useEffect(() => {
@@ -39,7 +40,7 @@ export default function Login({onLogin}) {
     onLogin({
       email: values.email,
       password: values.password,
-    }, setIsApiError);
+    }, setIsLoading, setIsApiError);
   }
 
   return (
@@ -77,11 +78,16 @@ export default function Login({onLogin}) {
               : ''
             }
           </span>
-          <button className={isFormValid ? 'login__submit-button' : 'login__submit-button login__submit-button_disabled'} type='submit' disabled={!isFormValid}>
-            Войти
+          <button
+            className={isFormValid && !isLoading ? 'login__submit-button' : 'login__submit-button login__submit-button_disabled'}
+            type='submit'
+            disabled={!isFormValid || isLoading}>
+              Войти
           </button>
         </form>
-        <p className='login__caption'>Ещё не зарегистрированы?&nbsp;<Link to='/signup' className='login__caption-link'>&nbsp;Регистрация</Link></p>
+        <p className='login__caption'>Ещё не зарегистрированы?&nbsp;
+          <Link to='/signup' className='login__caption-link'>&nbsp;Регистрация</Link>
+        </p>
       </section>
     </main>
   );

@@ -25,7 +25,11 @@ export default function MoviesCard({savedMovies, onClick, card}) {
       <h2 className='movies-card__name'>{card.nameRU}</h2>
       <p className='movies-card__duration'>{`${Math.floor(card.duration / 60)}ч ${card.duration % 60}м`}</p>
       <a className='movies-card__image-link' href={card.trailerLink} target='_blank' rel='noreferrer'>
-        <img className='movies-card__image' src={location.pathname === '/movies' ? `${BASE_IMAGE_URL}${card.image.url}` : card.image} alt={card.nameRU}/>
+        <img
+          className='movies-card__image'
+          src={location.pathname === '/movies' ? `${BASE_IMAGE_URL}${card.image.url}` : card.image}
+          alt={card.nameRU}
+        />
       </a>
       <button
         className={location.pathname === '/saved-movies'

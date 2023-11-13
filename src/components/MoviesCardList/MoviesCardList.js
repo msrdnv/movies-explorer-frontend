@@ -65,7 +65,10 @@ export default function MoviesCardList({ movies, savedMovies, handleClickCard, i
     let content = []
     for (let i = 0; i < cardNumber; i++) {
       const item = movies[i]
-      content.push(<li key={item.id} className='movies-card'><MoviesCard onClick={handleClickCard} card={item} savedMovies={savedMovies}/></li>)
+      content.push(
+      <li key={item.id} className='movies-card'>
+        <MoviesCard onClick={handleClickCard} card={item} savedMovies={savedMovies}/>
+      </li>)
     }
     return content
   };

@@ -22,6 +22,7 @@ export default function Register({onRegister}) {
   const [isPasswordValid, setIsPasswordValid] = React.useState(false);
   const [isFormValid, setIsFormValid] = React.useState(false);
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const [isApiError, setIsApiError] = React.useState(false);
   const [isEmailConflictError, setIsEmailConflictError] = React.useState(false);
 
@@ -56,7 +57,7 @@ export default function Register({onRegister}) {
       email: values.email,
       password: values.password,
       name: values.name,
-    }, setIsApiError, setIsEmailConflictError);
+    }, setIsLoading, setIsApiError, setIsEmailConflictError);
   }
 
   return (
@@ -107,9 +108,9 @@ export default function Register({onRegister}) {
               : ''
             }</span>
           <button
-            className={isFormValid ? 'register__submit-button' : 'register__submit-button register__submit-button_disabled'}
+            className={isFormValid && !isLoading ? 'register__submit-button' : 'register__submit-button register__submit-button_disabled'}
             type='submit'
-            disabled={!isFormValid}>
+            disabled={!isFormValid || isLoading}>
               Зарегистрироваться
           </button>
         </form>

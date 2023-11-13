@@ -31,11 +31,11 @@ export const handleApiError = (err, setIsApiError) => {
 export const filterMovies = (items, values) => {
   const foundMovies = items.filter((item) => {
     if (values.checkbox === true) {
-      return (item.nameRU.toLowerCase().startsWith(values.search.toLowerCase())
-      || item.nameEN.toLowerCase().startsWith(values.search.toLowerCase())) && item.duration <= 40
+      return (item.nameRU.toLowerCase().includes(values.search.toLowerCase())
+      || item.nameEN.toLowerCase().includes(values.search.toLowerCase())) && item.duration <= 40
     } else {
-      return item.nameRU.toLowerCase().startsWith(values.search.toLowerCase())
-      || item.nameEN.toLowerCase().startsWith(values.search.toLowerCase())
+      return item.nameRU.toLowerCase().includes(values.search.toLowerCase())
+      || item.nameEN.toLowerCase().includes(values.search.toLowerCase())
     }
   })
   const sortedMovies = [...foundMovies].sort((a, b) => a.nameRU > b.nameRU ? 1 : -1);

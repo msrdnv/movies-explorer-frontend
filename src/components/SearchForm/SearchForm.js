@@ -3,7 +3,8 @@ import './SearchForm.css'
 import { ERROR_MSG_SEARCH } from '../../utils/constants.js'
 import { setCustomErrorMsg } from '../../utils/utils.js'
 
-export default function SearchForm({ defaultValue, defaultChecked, onSubmit, handleChange, handleCheckbox, handleCheckboxClick}) {
+export default function SearchForm(
+  { defaultValue, defaultChecked, onSubmit, handleChange, handleCheckbox, handleCheckboxClick, onDisable }) {
 
   const onValidate = (evt) => {
     handleChange(evt);
@@ -23,7 +24,7 @@ export default function SearchForm({ defaultValue, defaultChecked, onSubmit, han
             onInvalid={onValidate}
             required
           />
-          <button className='search-form__button'>Поиск</button>
+          <button className='search-form__button' disabled={onDisable}>Поиск</button>
         </div>
         <div className='search-form__checkbox-container'>
           <label className='search-form__checkbox-label'>

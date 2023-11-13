@@ -36,7 +36,7 @@ export default function SavedMovies({ savedMovies, saveMovies }) {
   }
 
   const handleCheckboxClick = (evt) => {
-    if ((savedMovies.length > 0) && (lastSearch !== undefined)) {
+    if (savedMovies.length > 0) {
       setCurrentMovies(filterMovies(savedMovies, { search: lastSearch, checkbox: evt.target.checked}))
     }
   }
@@ -50,6 +50,7 @@ export default function SavedMovies({ savedMovies, saveMovies }) {
           handleCheckbox={handleCheckbox}
           handleCheckboxClick={handleCheckboxClick}
           handleChange={handleChange}
+          onDisable={!savedMovies.length > 0}
         />
         <MoviesCardList
           movies={currentMovies}

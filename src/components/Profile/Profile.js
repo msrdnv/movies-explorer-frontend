@@ -1,7 +1,6 @@
 import React from 'react'
 import './Profile.css'
 import Header from '../Header/Header'
-import { mainApi } from '../../utils/MainApi'
 import {
   EMAIL_REGEX,
   NAME_REGEX,
@@ -10,19 +9,20 @@ import {
   SUCCESS_MSG_PROFILE,
   DEFAULT_USER_NAME
 } from '../../utils/constants'
-import { handleEmailConflictError, disableApiConflictErrors } from '../../utils/utils'
+import { disableApiConflictErrors } from '../../utils/utils'
 import { useForm } from '../../hooks/useForm'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
-export default function Profile({ onLogout }) {
+export default function Profile({ onLogout, onUpdate }) {
 
-  const { currentUser, setCurrentUser } = React.useContext( CurrentUserContext );
+  const { currentUser } = React.useContext( CurrentUserContext );
   const { values, handleChange } = useForm({ name: currentUser.name, email: currentUser.email });
 
   const [isNameValid, setIsNameValid] = React.useState(false);
   const [isEmailValid, setIsEmailValid] = React.useState(false);
   const [isFormValid, setIsFormValid] = React.useState(false);
 
+  const [isLoading, setIsLoading] = React.useState(false);
   const [isApiError, setIsApiError] = React.useState(false);
   const [isEmailConflictError, setIsEmailConflictError] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
@@ -48,23 +48,12 @@ export default function Profile({ onLogout }) {
     : setIsEmailValid(false)
   }, [values.email])
 
-  const handleEditProfile = ({ name, email }) => {
-    setIsSuccess(false)
-    disableApiConflictErrors(setIsApiError, setIsEmailConflictError)
-    mainApi.editCurrentUser({ name, email }, localStorage.getItem('token'))
-    .then((data) => {
-      setCurrentUser(data)
-      setIsSuccess(true)
-    })
-    .catch((err) => handleEmailConflictError(err, setIsApiError, setIsEmailConflictError))
-  }
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    handleEditProfile({
+    onUpdate({
       email: values.email,
       name: values.name,
-    });
+    }, setIsLoading, setIsApiError, setIsEmailConflictError, setIsSuccess);
   }
 
   return (
@@ -77,7 +66,9 @@ export default function Profile({ onLogout }) {
             <div className='profile__inputs'>
               <label className='profile__label' htmlFor='profile-name'>Имя</label>
               <input
-                className={(values.name.length === 0 ? 'profile__input' : (isNameValid ? 'profile__input' : 'profile__input profile__input_error'))}
+                className={(values.name.length === 0
+                  ? 'profile__input'
+                  : (isNameValid ? 'profile__input' : 'profile__input profile__input_error'))}
                 defaultValue={currentUser.name || ''}
                 type='text'
                 placeholder='Имя'
@@ -91,7 +82,9 @@ export default function Profile({ onLogout }) {
             <div className='profile__inputs profile__inputs_place-under-bar'>
               <label className='profile__label' htmlFor='profile-email'>E-mail</label>
               <input
-                className={(values.email.length === 0 ? 'profile__input' : (isEmailValid ? 'profile__input' : 'profile__input profile__input_error'))}
+                className={(values.email.length === 0
+                  ? 'profile__input'
+                  : (isEmailValid ? 'profile__input' : 'profile__input profile__input_error'))}
                 defaultValue={currentUser.email || ''}
                 type='email' placeholder='E-mail'
                 name='email'
@@ -105,9 +98,9 @@ export default function Profile({ onLogout }) {
               : '')
             }</span>
             <button
-              className={isFormValid ? 'profile__update-button' : 'profile__update-button profile__update-button_disabled'}
+              className={isFormValid && !isLoading ? 'profile__update-button' : 'profile__update-button profile__update-button_disabled'}
               type='submit'
-              disabled={!isFormValid}>
+              disabled={!isFormValid || isLoading}>
                 Редактировать
             </button>
           </form>

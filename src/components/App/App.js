@@ -17,37 +17,33 @@ export default function App() {
 
   const navigate = useNavigate();
 
+  const [isAppLoading, setIsAppLoading] = React.useState(true);
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({name: '', email: ''});
-  const [isLoading, setIsLoading] = React.useState(true);
   const [isUserLoaded, setIsUserLoaded] = React.useState(false)
 
   const [savedMovies, setSavedMovies] = React.useState([])
 
   React.useLayoutEffect(() => {
-    setIsLoading(true)
+    setIsAppLoading(true)
     if ((localStorage.getItem('token') !== null) && (!isUserLoaded)) {
-    mainApi.getCurrentUser(localStorage.getItem('token'))
-    .then((data) => {
-      setCurrentUser(data)
-      setIsLoggedIn(true)
-      setIsUserLoaded(true)
-
-    })
-    .catch(console.error)
-    .finally(() => setIsLoading(false))
+      mainApi.getCurrentUser(localStorage.getItem('token'))
+      .then((data) => {
+        setCurrentUser(data)
+        setIsLoggedIn(true)
+        setIsUserLoaded(true)
+      })
+      .catch(console.error)
+      .finally(() => setIsAppLoading(false))
+    } else if (isLoggedIn) {
+      mainApi.getSavedMovies(localStorage.getItem('token'))
+      .then((data) => setSavedMovies(data))
+      .catch(console.error)
+      .finally(() => setIsAppLoading(false))
     } else {
-      setIsLoading(false)
+      setIsAppLoading(false)
     }
   }, [isLoggedIn, isUserLoaded]);
-
-  React.useEffect(() => {
-    if (isLoggedIn) {
-    mainApi.getSavedMovies(localStorage.getItem('token'))
-    .then((data) => setSavedMovies(data))
-    .catch(console.error)
-    }
-  }, [isLoggedIn])
 
   const handleProfileLogout = () => {
     setCurrentUser({name: '', email: ''})
@@ -61,7 +57,8 @@ export default function App() {
     navigate(-1);
   }
 
-  const handleLogin = ({ email, password }, setIsApiError) => {
+  const handleLogin = ({ email, password }, setIsLoading, setIsApiError) => {
+    setIsLoading(true)
     setIsApiError(false)
     mainApi.login({ email, password })
     .then((data) => {
@@ -70,18 +67,34 @@ export default function App() {
       navigate('/movies');
     })
     .catch((err) => handleApiError(err, setIsApiError))
+    .finally(() => setIsLoading(false))
   }
 
-  const handleRegister = ({ email, password, name }, setIsApiError, setIsEmailConflictError) => {
+  const handleRegister = ({ email, password, name }, setIsLoading, setIsApiError, setIsEmailConflictError) => {
+    setIsLoading(true)
     disableApiConflictErrors(setIsApiError, setIsEmailConflictError);
     mainApi.register({ email, password, name })
-    .then(() => handleLogin({ email, password }, setIsApiError))
+    .then(() => handleLogin({ email, password }, setIsLoading, setIsApiError))
     .catch((err) => handleEmailConflictError(err, setIsApiError, setIsEmailConflictError))
+    .finally(() => setIsLoading(false))
+  }
+
+  const handleEditProfile = ({ name, email }, setIsLoading, setIsApiError, setIsEmailConflictError, setIsSuccess) => {
+    setIsSuccess(false)
+    setIsLoading(true)
+    disableApiConflictErrors(setIsApiError, setIsEmailConflictError)
+    mainApi.editCurrentUser({ name, email }, localStorage.getItem('token'))
+    .then((data) => {
+      setCurrentUser(data)
+      setIsSuccess(true)
+    })
+    .catch((err) => handleEmailConflictError(err, setIsApiError, setIsEmailConflictError))
+    .finally(() => setIsLoading(false))
   }
 
   return (
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn}}>
-      {!isLoading ? <Routes>
+      {!isAppLoading ? <Routes>
         <Route path="/" element={<Main/>}/>
         <Route
           path="/movies"
@@ -93,7 +106,7 @@ export default function App() {
         />
         <Route
           path="/profile"
-          element={<ProtectedRoute element={Profile} isLoggedIn={isLoggedIn} onLogout={handleProfileLogout}/>}
+          element={<ProtectedRoute element={Profile} isLoggedIn={isLoggedIn} onLogout={handleProfileLogout} onUpdate={handleEditProfile}/>}
         />
         <Route
           path="/signin"
