@@ -25,15 +25,29 @@ export default function Header() {
       {user.isLoggedIn
       ? (<>
           <nav className='header__nav-menu header__nav-menu_logged'>
-            <NavLink className={({isActive}) => `header__nav-link header__nav-link_logged ${isActive ? 'header__nav-link_active' : ''}`} to='/movies'>Фильмы</NavLink>
-            <NavLink className={({isActive}) => `header__nav-link header__nav-link_logged ${isActive ? 'header__nav-link_active' : ''}`} to='/saved-movies'>Сохранённые фильмы</NavLink>
+            <NavLink
+              className={({isActive}) => `header__nav-link header__nav-link_logged ${isActive ? 'header__nav-link_active' : ''}`}
+              to='/movies'>
+                Фильмы
+            </NavLink>
+            <NavLink
+              className={({isActive}) => `header__nav-link header__nav-link_logged ${isActive ? 'header__nav-link_active' : ''}`}
+              to='/saved-movies'>
+                Сохранённые фильмы
+            </NavLink>
             <Link className='header__account-button' to='/profile'>Аккаунт
-              <div className={location.pathname==='/' ? 'header__account-button-logo-container' : 'header__account-button-logo-container header__account-button-logo-container_theme-dark'}>
-                <img src={icon} alt='Иконка ссылки аккаунта'></img>
+              <div className={location.pathname==='/'
+                ? 'header__account-button-logo-container'
+                : 'header__account-button-logo-container header__account-button-logo-container_theme-dark'}>
+                  <img src={icon} alt='Иконка ссылки аккаунта'/>
               </div>
             </Link>
           </nav>
-          <button className={isBurgerMenuOpened ? 'header__burger-menu-button header__burger-menu-button_active' : 'header__burger-menu-button'} type='button' onClick={toggleBurgerMenu}/>
+          <button
+            className={isBurgerMenuOpened ? 'header__burger-menu-button header__burger-menu-button_active' : 'header__burger-menu-button'}
+            type='button'
+            onClick={toggleBurgerMenu}
+          />
           {isBurgerMenuOpened ? <NavTab onToggle={toggleBurgerMenu}/> : ''}
         </>)
       : (<nav className='header__nav-menu'>

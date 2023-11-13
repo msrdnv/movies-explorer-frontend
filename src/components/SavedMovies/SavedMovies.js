@@ -45,8 +45,18 @@ export default function SavedMovies({ savedMovies, saveMovies }) {
     <>
       <Header/>
       <main className='saved-movies'>
-        <SearchForm onSubmit={handleSubmitSearchForm} handleCheckbox={handleCheckbox} handleCheckboxClick={handleCheckboxClick} handleChange={handleChange}/>
-        <MoviesCardList movies={currentMovies} savedMovies={savedMovies} handleClickCard={handleDeleteCard} isApiError={isApiError}/>
+        <SearchForm
+          onSubmit={handleSubmitSearchForm}
+          handleCheckbox={handleCheckbox}
+          handleCheckboxClick={handleCheckboxClick}
+          handleChange={handleChange}
+        />
+        <MoviesCardList
+          movies={currentMovies}
+          savedMovies={savedMovies}
+          handleClickCard={handleDeleteCard}
+          isApiError={isApiError}
+        />
       </main>
       <Footer/>
     </>

@@ -2,7 +2,14 @@ import React from 'react'
 import './Profile.css'
 import Header from '../Header/Header'
 import { mainApi } from '../../utils/MainApi'
-import { EMAIL_REGEX, NAME_REGEX, ERROR_MSG_EMAIL_CONFLICT, ERROR_MSG_PROFILE, SUCCESS_MSG_PROFILE } from '../../utils/constants'
+import {
+  EMAIL_REGEX,
+  NAME_REGEX,
+  ERROR_MSG_EMAIL_CONFLICT,
+  ERROR_MSG_PROFILE,
+  SUCCESS_MSG_PROFILE,
+  DEFAULT_USER_NAME
+} from '../../utils/constants'
 import { handleEmailConflictError, disableApiConflictErrors } from '../../utils/utils'
 import { useForm } from '../../hooks/useForm'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
@@ -65,7 +72,7 @@ export default function Profile({ onLogout }) {
       <Header/>
       <main className='profile'>
         <section className='profile__container'>
-          <h1 className='profile__title'>Привет, {currentUser.name || 'Пользователь'}!</h1>
+          <h1 className='profile__title'>Привет, {currentUser.name === '' ? DEFAULT_USER_NAME : currentUser.name}!</h1>
           <form className='profile__form' onSubmit={handleSubmit} noValidate>
             <div className='profile__inputs'>
               <label className='profile__label' htmlFor='profile-name'>Имя</label>
@@ -97,8 +104,11 @@ export default function Profile({ onLogout }) {
               ? (isEmailConflictError ? ERROR_MSG_EMAIL_CONFLICT : ERROR_MSG_PROFILE)
               : '')
             }</span>
-            <button className={isFormValid ? 'profile__update-button' : 'profile__update-button profile__update-button_disabled'} type='submit' disabled={!isFormValid}>
-              Редактировать
+            <button
+              className={isFormValid ? 'profile__update-button' : 'profile__update-button profile__update-button_disabled'}
+              type='submit'
+              disabled={!isFormValid}>
+                Редактировать
             </button>
           </form>
           <button className='profile__logout-button' type='button' onClick={onLogout}>Выйти из аккаунта</button>

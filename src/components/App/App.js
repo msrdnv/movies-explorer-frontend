@@ -18,33 +18,44 @@ export default function App() {
   const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({name: '', email: ''});
   const [isLoading, setIsLoading] = React.useState(true);
+  const [isUserLoaded, setIsUserLoaded] = React.useState(false)
+
   const [savedMovies, setSavedMovies] = React.useState([])
 
   React.useLayoutEffect(() => {
     setIsLoading(true)
+    if ((localStorage.getItem('token') !== null) && (!isUserLoaded)) {
     mainApi.getCurrentUser(localStorage.getItem('token'))
     .then((data) => {
       setCurrentUser(data)
-      setIsLoggedIn(true);
+      setIsLoggedIn(true)
+      setIsUserLoaded(true)
+
     })
     .catch(console.error)
     .finally(() => setIsLoading(false))
-  }, [isLoggedIn]);
+    } else {
+      setIsLoading(false)
+    }
+  }, [isLoggedIn, isUserLoaded]);
 
   React.useEffect(() => {
+    if (isLoggedIn) {
     mainApi.getSavedMovies(localStorage.getItem('token'))
     .then((data) => setSavedMovies(data))
     .catch(console.error)
+    }
   }, [isLoggedIn])
 
   const handleProfileLogout = () => {
-    setIsLoggedIn(false);
-    setCurrentUser({});
-    localStorage.clear();
-    navigate('/');
-  };
+    setCurrentUser({name: '', email: ''})
+    setIsLoggedIn(false)
+    setIsUserLoaded(false)
+    localStorage.clear()
+    navigate('/')
+  }
 
   const handleReturn = () => {
     navigate(-1);
@@ -72,11 +83,26 @@ export default function App() {
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn}}>
       {!isLoading ? <Routes>
         <Route path="/" element={<Main/>}/>
-        <Route path="/movies" element={<ProtectedRoute element={Movies} isLoggedIn={isLoggedIn} savedMovies={savedMovies} saveMovies={setSavedMovies}/>}/>
-        <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} isLoggedIn={isLoggedIn} savedMovies={savedMovies} saveMovies={setSavedMovies}/>}/>
-        <Route path="/profile" element={<ProtectedRoute element={Profile} isLoggedIn={isLoggedIn} onLogout={handleProfileLogout}/>}/>
-        <Route path="/signin" element={<ProtectedRoute element={Login} isLoggedIn={!isLoggedIn} onLogin={handleLogin} />}/>
-        <Route path="/signup" element={<ProtectedRoute element={Register} isLoggedIn={!isLoggedIn} onRegister={handleRegister}/>}/>
+        <Route
+          path="/movies"
+          element={<ProtectedRoute element={Movies} isLoggedIn={isLoggedIn} savedMovies={savedMovies} saveMovies={setSavedMovies}/>}
+        />
+        <Route
+          path="/saved-movies"
+          element={<ProtectedRoute element={SavedMovies} isLoggedIn={isLoggedIn} savedMovies={savedMovies} saveMovies={setSavedMovies}/>}
+        />
+        <Route
+          path="/profile"
+          element={<ProtectedRoute element={Profile} isLoggedIn={isLoggedIn} onLogout={handleProfileLogout}/>}
+        />
+        <Route
+          path="/signin"
+          element={<ProtectedRoute element={Login} isLoggedIn={!isLoggedIn} onLogin={handleLogin} />}
+        />
+        <Route
+          path="/signup"
+          element={<ProtectedRoute element={Register} isLoggedIn={!isLoggedIn} onRegister={handleRegister}/>}
+        />
         <Route path="*" element={<NotFoundPage onReturn={handleReturn}/>} />
       </Routes> : ''}
     </CurrentUserContext.Provider>

@@ -1,3 +1,5 @@
+import { MAIN_API_URL } from './constants'
+
 class MainApi {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -46,7 +48,7 @@ class MainApi {
 };
 
 export const mainApi = new MainApi({
-  baseUrl: 'https://api.movies.msrdnv.nomoredomainsrocks.ru',
+  baseUrl: MAIN_API_URL,
   headers: {
     'Content-Type': 'application/json',
   }

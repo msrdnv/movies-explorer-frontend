@@ -1,7 +1,16 @@
 import React from 'react'
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
-import { ERROR_MSG_API_ERROR, ERROR_MSG_NOT_FOUND } from '../../utils/constants'
+import {
+  ERROR_MSG_API_ERROR,
+  ERROR_MSG_NOT_FOUND,
+  INIT_CARD_NUMBER_320,
+  INIT_CARD_NUMBER_768,
+  INIT_CARD_NUMBER_1280,
+  EXTRA_CARD_ROW_320,
+  EXTRA_CARD_ROW_768,
+  EXTRA_CARD_ROW_1280
+} from '../../utils/constants'
 
 export default function MoviesCardList({ movies, savedMovies, handleClickCard, isApiError}) {
 
@@ -33,14 +42,14 @@ export default function MoviesCardList({ movies, savedMovies, handleClickCard, i
 
   React.useEffect(() => {
     if (width < 768) {
-      setInitialMaxCardNumber(5)
-      setExtraRowCardNumber(2)
+      setInitialMaxCardNumber(INIT_CARD_NUMBER_320)
+      setExtraRowCardNumber(EXTRA_CARD_ROW_320)
     } else if (width < 1280) {
-      setInitialMaxCardNumber(8)
-      setExtraRowCardNumber(2)
+      setInitialMaxCardNumber(INIT_CARD_NUMBER_768)
+      setExtraRowCardNumber(EXTRA_CARD_ROW_768)
     } else {
-      setInitialMaxCardNumber(12)
-      setExtraRowCardNumber(3)
+      setInitialMaxCardNumber(INIT_CARD_NUMBER_1280)
+      setExtraRowCardNumber(EXTRA_CARD_ROW_1280)
     }
   }, [width]);
 

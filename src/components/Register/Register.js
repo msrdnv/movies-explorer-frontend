@@ -2,7 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './Register.css'
 import logo from '../../images/logo.svg'
-import { ERROR_MSG_NAME, ERROR_MSG_EMAIL, EMAIL_REGEX, NAME_REGEX, ERROR_MSG_EMAIL_CONFLICT, ERROR_MSG_REGISTER } from '../../utils/constants'
+import {
+  ERROR_MSG_NAME,
+  ERROR_MSG_EMAIL,
+  EMAIL_REGEX,
+  NAME_REGEX,
+  ERROR_MSG_EMAIL_CONFLICT,
+  ERROR_MSG_REGISTER
+} from '../../utils/constants'
 import { disableApiConflictErrors } from '../../utils/utils'
 import { useForm } from '../../hooks/useForm'
 
@@ -99,8 +106,11 @@ export default function Register({onRegister}) {
               ? (isEmailConflictError ? ERROR_MSG_EMAIL_CONFLICT : ERROR_MSG_REGISTER)
               : ''
             }</span>
-          <button className={isFormValid ? 'register__submit-button' : 'register__submit-button register__submit-button_disabled'} type='submit' disabled={!isFormValid}>
-            Зарегистрироваться
+          <button
+            className={isFormValid ? 'register__submit-button' : 'register__submit-button register__submit-button_disabled'}
+            type='submit'
+            disabled={!isFormValid}>
+              Зарегистрироваться
           </button>
         </form>
         <p className='register__caption'>Уже зарегистрированы?&nbsp;

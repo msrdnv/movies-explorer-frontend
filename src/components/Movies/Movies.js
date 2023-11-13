@@ -9,6 +9,7 @@ import { handleApiError, filterMovies } from '../../utils/utils.js'
 import { moviesApi } from '../../utils/MoviesApi'
 import { mainApi } from '../../utils/MainApi'
 import { useForm } from '../../hooks/useForm'
+import { BASE_IMAGE_URL } from '../../utils/constants.js'
 
 export default function Movies({ savedMovies, saveMovies }) {
 
@@ -77,9 +78,9 @@ export default function Movies({ savedMovies, saveMovies }) {
         duration: card.duration,
         year: card.year,
         description: card.description,
-        image: `https://api.nomoreparties.co${card.image.url}`,
+        image: `${BASE_IMAGE_URL}${card.image.url}`,
         trailerLink: card.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
+        thumbnail: `${BASE_IMAGE_URL}${card.image.formats.thumbnail.url}`,
         movieId: card.id,
         nameRU: card.nameRU,
         nameEN: card.nameEN
@@ -104,7 +105,15 @@ export default function Movies({ savedMovies, saveMovies }) {
           handleCheckbox={handleCheckbox}
           handleCheckboxClick={handleCheckboxClick}
         />
-        {isLoading ? <Preloader/> : <MoviesCardList movies={currentMovies} savedMovies={savedMovies} handleClickCard={handleDeleteCard} isApiError={isApiError}/>}
+        {isLoading
+          ? <Preloader/>
+          : <MoviesCardList
+              movies={currentMovies}
+              savedMovies={savedMovies}
+              handleClickCard={handleDeleteCard}
+              isApiError={isApiError}
+            />
+        }
       </main>
       <Footer/>
     </>
