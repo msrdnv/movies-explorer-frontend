@@ -7,24 +7,10 @@ export const setCustomErrorMsg = (evt, msg) => {
   }
 }
 
-export const saveMovies = (data, setMovies) => {
-  localStorage.setItem('api-saved-movies', JSON.stringify(data))
-  setMovies(data)
-}
-
 export const handleEmailConflictError = (err, setIsApiError, setIsEmailConflictError) => {
   if (err === 'Ошибка: 409') {
     setIsApiError(true)
     setIsEmailConflictError(true)
-    console.log(err)
-  } else {
-    setIsApiError(true)
-    console.log(err)
-  }
-}
-
-export const ignoreNotFoundSavedCardsError = (err, setIsApiError) => {
-  if (err === 'Ошибка: 404') {
     console.log(err)
   } else {
     setIsApiError(true)

@@ -20,6 +20,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(true);
+  const [savedMovies, setSavedMovies] = React.useState([])
 
   React.useLayoutEffect(() => {
     setIsLoading(true)
@@ -31,6 +32,12 @@ export default function App() {
     .catch(console.error)
     .finally(() => setIsLoading(false))
   }, [isLoggedIn]);
+
+  React.useEffect(() => {
+    mainApi.getSavedMovies(localStorage.getItem('token'))
+    .then((data) => setSavedMovies(data))
+    .catch(console.error)
+  }, [isLoggedIn])
 
   const handleProfileLogout = () => {
     setIsLoggedIn(false);
@@ -65,8 +72,8 @@ export default function App() {
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn}}>
       {!isLoading ? <Routes>
         <Route path="/" element={<Main/>}/>
-        <Route path="/movies" element={<ProtectedRoute element={Movies} isLoggedIn={isLoggedIn}/>}/>
-        <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} isLoggedIn={isLoggedIn}/>}/>
+        <Route path="/movies" element={<ProtectedRoute element={Movies} isLoggedIn={isLoggedIn} savedMovies={savedMovies} saveMovies={setSavedMovies}/>}/>
+        <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} isLoggedIn={isLoggedIn} savedMovies={savedMovies} saveMovies={setSavedMovies}/>}/>
         <Route path="/profile" element={<ProtectedRoute element={Profile} isLoggedIn={isLoggedIn} onLogout={handleProfileLogout}/>}/>
         <Route path="/signin" element={<ProtectedRoute element={Login} isLoggedIn={!isLoggedIn} onLogin={handleLogin} />}/>
         <Route path="/signup" element={<ProtectedRoute element={Register} isLoggedIn={!isLoggedIn} onRegister={handleRegister}/>}/>

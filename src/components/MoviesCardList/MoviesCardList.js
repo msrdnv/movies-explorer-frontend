@@ -3,7 +3,7 @@ import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import { ERROR_MSG_API_ERROR, ERROR_MSG_NOT_FOUND } from '../../utils/constants'
 
-export default function MoviesCardList({ movies, handleClickCard, isApiError}) {
+export default function MoviesCardList({ movies, savedMovies, handleClickCard, isApiError}) {
 
   const [currentCardNumber, setCurrentCardNumber] = React.useState(0);
 
@@ -56,7 +56,7 @@ export default function MoviesCardList({ movies, handleClickCard, isApiError}) {
     let content = []
     for (let i = 0; i < cardNumber; i++) {
       const item = movies[i]
-      content.push(<li key={item.id} className='movies-card'><MoviesCard onClick={handleClickCard} card={item} movies={movies}/></li>)
+      content.push(<li key={item.id} className='movies-card'><MoviesCard onClick={handleClickCard} card={item} savedMovies={savedMovies}/></li>)
     }
     return content
   };

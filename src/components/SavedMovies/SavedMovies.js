@@ -4,44 +4,40 @@ import Header from '../Header/Header'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Footer from '../Footer/Footer'
-import { saveMovies, ignoreNotFoundSavedCardsError, handleApiError, filterMovies } from '../../utils/utils.js'
+import { handleApiError, filterMovies } from '../../utils/utils.js'
 import { mainApi } from '../../utils/MainApi'
 import { useForm } from '../../hooks/useForm'
 
-export default function SavedMovies() {
+export default function SavedMovies({ savedMovies, saveMovies }) {
 
-  const apiSavedMovies = JSON.parse(localStorage.getItem('api-saved-movies'))
-
+  const [currentMovies, setCurrentMovies] = React.useState(savedMovies)
   const [isApiError, setIsApiError] = React.useState(false);
-  const [currentMovies, setCurrentMovies] = React.useState([])
+
   const { values, handleChange, handleCheckbox } = useForm({search: '', checkbox: false});
   const [lastSearch, setLastSearch] = React.useState('')
-
-  React.useEffect(() => {
-    setIsApiError(false)
-    mainApi.getSavedMovies(localStorage.getItem('token'))
-    .then((data) => saveMovies(data, setCurrentMovies))
-    .catch((err) => ignoreNotFoundSavedCardsError(err, setIsApiError))
-  }, [setCurrentMovies])
 
   const handleDeleteCard = (card) => {
     setIsApiError(false)
     mainApi.deleteMovie(card.id, localStorage.getItem('token'))
-    .then(() => saveMovies(currentMovies.filter((item) => item.id !== card.id), setCurrentMovies))
+    .then(() => {
+      const updatedMovies = currentMovies.filter((item) => item.id !== card.id)
+      saveMovies(updatedMovies)
+      setCurrentMovies(updatedMovies)
+    })
     .catch((err) => handleApiError(err, setIsApiError))
   }
 
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault()
-    if (apiSavedMovies !== null) {
+    if (savedMovies.length > 0) {
       setLastSearch(values.search);
-      setCurrentMovies(filterMovies(apiSavedMovies, values))
+      setCurrentMovies(filterMovies(savedMovies, values))
     }
   }
 
   const handleCheckboxClick = (evt) => {
-    if ((apiSavedMovies !== null) && (lastSearch !== undefined)) {
-      setCurrentMovies(filterMovies(apiSavedMovies, { search: lastSearch, checkbox: evt.target.checked}))
+    if ((savedMovies.length > 0) && (lastSearch !== undefined)) {
+      setCurrentMovies(filterMovies(savedMovies, { search: lastSearch, checkbox: evt.target.checked}))
     }
   }
 
@@ -50,7 +46,7 @@ export default function SavedMovies() {
       <Header/>
       <main className='saved-movies'>
         <SearchForm onSubmit={handleSubmitSearchForm} handleCheckbox={handleCheckbox} handleCheckboxClick={handleCheckboxClick} handleChange={handleChange}/>
-        <MoviesCardList movies={currentMovies} handleClickCard={handleDeleteCard} isApiError={isApiError}/>
+        <MoviesCardList movies={currentMovies} savedMovies={savedMovies} handleClickCard={handleDeleteCard} isApiError={isApiError}/>
       </main>
       <Footer/>
     </>

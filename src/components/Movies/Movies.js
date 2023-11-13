@@ -5,12 +5,12 @@ import SearchForm from '../SearchForm/SearchForm'
 import Preloader from '../Preloader/Preloader'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import Footer from '../Footer/Footer'
-import { saveMovies, ignoreNotFoundSavedCardsError, handleApiError, filterMovies } from '../../utils/utils.js'
+import { handleApiError, filterMovies } from '../../utils/utils.js'
 import { moviesApi } from '../../utils/MoviesApi'
 import { mainApi } from '../../utils/MainApi'
 import { useForm } from '../../hooks/useForm'
 
-export default function Movies() {
+export default function Movies({ savedMovies, saveMovies }) {
 
   const apiMovies = JSON.parse(localStorage.getItem('api-movies'))
 
@@ -23,14 +23,6 @@ export default function Movies() {
   const { values, handleChange, handleCheckbox } = useForm({search: lastSearch, checkbox: lastCheckboxState});
 
   const [currentMovies, setCurrentMovies] = React.useState(lastMoviesResult !== null ? lastMoviesResult : [])
-  const [savedMovies, setSavedMovies] = React.useState([])
-
-  React.useEffect(() => {
-    setIsApiError(false)
-    mainApi.getSavedMovies(localStorage.getItem('token'))
-    .then((data) => saveMovies(data, setSavedMovies))
-    .catch((err) => ignoreNotFoundSavedCardsError(err, setIsApiError))
-  }, [])
 
   const saveLastSearchParams = (movies) => {
     localStorage.setItem('last-search-query', values.search)
@@ -45,8 +37,8 @@ export default function Movies() {
   }
 
   const handleSubmitSearchForm = (evt) => {
-    if (apiMovies === null) {
     evt.preventDefault()
+    if (apiMovies === null) {
     setIsLoading(true)
     setIsApiError(false)
     moviesApi.getMovies()
@@ -59,28 +51,24 @@ export default function Movies() {
     .catch((err) => handleApiError(err, setIsApiError))
     .finally(() => setIsLoading(false));
     } else {
-      evt.preventDefault()
       const filteredMovies = filterMovies(apiMovies, values)
       setCurrentMovies(filteredMovies)
       saveLastSearchParams(filteredMovies)
     }
   }
 
-  const handleToggleCard = (card, isSaved, setIsSaved) => {
-    if (isSaved) {
+  const handleDeleteCard = (card, isSaved, setIsSaved) => {
+    if (savedMovies.length > 0 && isSaved) {
       setIsApiError(false)
-      mainApi.getSavedMovies(localStorage.getItem('token'))
-      .then((data) => {
-        const deleteMovies = data.filter((item) => item.nameRU === card.nameRU)
-        setIsApiError(false)
-        mainApi.deleteMovie(deleteMovies[0].id, localStorage.getItem('token'))
+      const movieToDelete = savedMovies.find((item) => item.nameRU === card.nameRU)
+      if (movieToDelete !== undefined) {
+        mainApi.deleteMovie(movieToDelete.id, localStorage.getItem('token'))
         .then(() => {
           setIsSaved(false)
-          saveMovies(savedMovies.filter((item) => item.id !== deleteMovies[0].id), setSavedMovies)
+          saveMovies(savedMovies.filter((item) => item.id !== movieToDelete.id))
         })
         .catch((err) => handleApiError(err, setIsApiError))
-      })
-      .catch((err) => ignoreNotFoundSavedCardsError(err, setIsApiError))
+      }
     } else {
       setIsApiError(false)
       mainApi.postNewMovie({
@@ -96,12 +84,9 @@ export default function Movies() {
         nameRU: card.nameRU,
         nameEN: card.nameEN
       }, localStorage.getItem('token'))
-      .then(() => {
+      .then((data) => {
         setIsSaved(true)
-        setIsApiError(false)
-        mainApi.getSavedMovies(localStorage.getItem('token'))
-        .then((data) => saveMovies(data, setSavedMovies))
-        .catch((err) => ignoreNotFoundSavedCardsError(err, setIsApiError))
+        saveMovies([...savedMovies, data])
       })
       .catch((err) => handleApiError(err, setIsApiError))
     }
@@ -119,7 +104,7 @@ export default function Movies() {
           handleCheckbox={handleCheckbox}
           handleCheckboxClick={handleCheckboxClick}
         />
-        {isLoading ? <Preloader/> : <MoviesCardList movies={currentMovies} handleClickCard={handleToggleCard} isApiError={isApiError}/>}
+        {isLoading ? <Preloader/> : <MoviesCardList movies={currentMovies} savedMovies={savedMovies} handleClickCard={handleDeleteCard} isApiError={isApiError}/>}
       </main>
       <Footer/>
     </>
