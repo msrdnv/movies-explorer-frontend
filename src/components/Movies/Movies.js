@@ -19,6 +19,7 @@ export default function Movies({ savedMovies, saveMovies }) {
   const lastCheckboxState = JSON.parse(localStorage.getItem('last-checkbox-state'))
   const lastMoviesResult = JSON.parse(localStorage.getItem('last-movies-result'))
 
+  const [isPreloading, setIsPreloading] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isApiError, setIsApiError] = React.useState(false);
   const { values, handleChange, handleCheckbox } = useForm({search: lastSearch, checkbox: lastCheckboxState});
@@ -40,7 +41,7 @@ export default function Movies({ savedMovies, saveMovies }) {
   const handleSubmitSearchForm = (evt) => {
     evt.preventDefault()
     if (apiMovies === null) {
-    setIsLoading(true)
+    setIsPreloading(true)
     setIsApiError(false)
     moviesApi.getMovies()
     .then((data) => {
@@ -50,7 +51,7 @@ export default function Movies({ savedMovies, saveMovies }) {
       saveLastSearchParams(filteredMovies)
     })
     .catch((err) => handleApiError(err, setIsApiError))
-    .finally(() => setIsLoading(false));
+    .finally(() => setIsPreloading(false));
     } else {
       const filteredMovies = filterMovies(apiMovies, values)
       setCurrentMovies(filteredMovies)
@@ -60,6 +61,7 @@ export default function Movies({ savedMovies, saveMovies }) {
 
   const handleDeleteCard = (card, isSaved, setIsSaved) => {
     if (savedMovies.length > 0 && isSaved) {
+      setIsLoading(true)
       setIsApiError(false)
       const movieToDelete = savedMovies.find((item) => item.nameRU === card.nameRU)
       if (movieToDelete !== undefined) {
@@ -69,8 +71,10 @@ export default function Movies({ savedMovies, saveMovies }) {
           saveMovies(savedMovies.filter((item) => item.id !== movieToDelete.id))
         })
         .catch((err) => handleApiError(err, setIsApiError))
+        .finally(() => setIsLoading(false))
       }
     } else {
+      setIsLoading(true)
       setIsApiError(false)
       mainApi.postNewMovie({
         country: card.country,
@@ -90,6 +94,7 @@ export default function Movies({ savedMovies, saveMovies }) {
         saveMovies([...savedMovies, data])
       })
       .catch((err) => handleApiError(err, setIsApiError))
+      .finally(() => setIsLoading(false))
     }
   }
 
@@ -104,15 +109,16 @@ export default function Movies({ savedMovies, saveMovies }) {
           handleChange={handleChange}
           handleCheckbox={handleCheckbox}
           handleCheckboxClick={handleCheckboxClick}
-          onDisable={isLoading}
+          onDisable={isPreloading}
         />
-        {isLoading
+        {isPreloading
           ? <Preloader/>
           : <MoviesCardList
               movies={currentMovies}
               savedMovies={savedMovies}
               handleClickCard={handleDeleteCard}
               isApiError={isApiError}
+              onDisableLike={isLoading}
             />
         }
       </main>

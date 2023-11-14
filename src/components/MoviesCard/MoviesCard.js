@@ -3,7 +3,7 @@ import './MoviesCard.css'
 import { useLocation } from 'react-router-dom'
 import { BASE_IMAGE_URL } from '../../utils/constants'
 
-export default function MoviesCard({savedMovies, onClick, card}) {
+export default function MoviesCard({savedMovies, onClick, card, onDisableLike}) {
 
   const checkIsSaved = () => {
     if (savedMovies.length > 0) {
@@ -36,7 +36,8 @@ export default function MoviesCard({savedMovies, onClick, card}) {
           ? 'movies-card__button movies-card__button_delete'
           : ((location.pathname === '/movies' && isSaved) ? 'movies-card__button movies-card__button_saved' : 'movies-card__button')}
         type='button'
-        onClick={handleClick}>
+        onClick={handleClick}
+        disabled={onDisableLike}>
           {(location.pathname === '/movies' && !isSaved) ? 'Cохранить' : ''}
       </button>
     </>

@@ -12,7 +12,7 @@ import {
   EXTRA_CARD_ROW_1280
 } from '../../utils/constants'
 
-export default function MoviesCardList({ movies, savedMovies, handleClickCard, isApiError}) {
+export default function MoviesCardList({ movies, savedMovies, handleClickCard, isApiError, onDisableLike}) {
 
   const [currentCardNumber, setCurrentCardNumber] = React.useState(0);
 
@@ -67,7 +67,7 @@ export default function MoviesCardList({ movies, savedMovies, handleClickCard, i
       const item = movies[i]
       content.push(
       <li key={item.id} className='movies-card'>
-        <MoviesCard onClick={handleClickCard} card={item} savedMovies={savedMovies}/>
+        <MoviesCard onClick={handleClickCard} card={item} savedMovies={savedMovies} onDisableLike={onDisableLike}/>
       </li>)
     }
     return content

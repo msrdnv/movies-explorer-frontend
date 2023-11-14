@@ -11,12 +11,14 @@ import { useForm } from '../../hooks/useForm'
 export default function SavedMovies({ savedMovies, saveMovies }) {
 
   const [currentMovies, setCurrentMovies] = React.useState(savedMovies)
+  const [isLoading, setIsLoading] = React.useState(false);
   const [isApiError, setIsApiError] = React.useState(false);
 
   const { values, handleChange, handleCheckbox } = useForm({search: '', checkbox: false});
   const [lastSearch, setLastSearch] = React.useState('')
 
   const handleDeleteCard = (card) => {
+    setIsLoading(true)
     setIsApiError(false)
     mainApi.deleteMovie(card.id, localStorage.getItem('token'))
     .then(() => {
@@ -25,6 +27,7 @@ export default function SavedMovies({ savedMovies, saveMovies }) {
       setCurrentMovies(updatedMovies)
     })
     .catch((err) => handleApiError(err, setIsApiError))
+    .finally(() => setIsLoading(false))
   }
 
   const handleSubmitSearchForm = (evt) => {
@@ -50,13 +53,13 @@ export default function SavedMovies({ savedMovies, saveMovies }) {
           handleCheckbox={handleCheckbox}
           handleCheckboxClick={handleCheckboxClick}
           handleChange={handleChange}
-          onDisable={!savedMovies.length > 0}
         />
         <MoviesCardList
           movies={currentMovies}
           savedMovies={savedMovies}
           handleClickCard={handleDeleteCard}
           isApiError={isApiError}
+          onDisableLike={isLoading}
         />
       </main>
       <Footer/>
