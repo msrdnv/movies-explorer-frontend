@@ -22,9 +22,8 @@ export default function SavedMovies({ savedMovies, saveMovies }) {
     setIsApiError(false)
     mainApi.deleteMovie(card.id, localStorage.getItem('token'))
     .then(() => {
-      const updatedMovies = currentMovies.filter((item) => item.id !== card.id)
-      saveMovies(updatedMovies)
-      setCurrentMovies(updatedMovies)
+      saveMovies(savedMovies.filter((item) => item.id !== card.id))
+      setCurrentMovies(currentMovies.filter((item) => item.id !== card.id))
     })
     .catch((err) => handleApiError(err, setIsApiError))
     .finally(() => setIsLoading(false))
