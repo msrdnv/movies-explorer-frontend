@@ -44,11 +44,25 @@
 .movies-card-list__null-result {
   margin: auto;
   padding: 0;
-  max-width: max-content;
+  max-width: calc(100% - 140px);
+  text-align: center;
   color: #FFF;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.21;
+}
+
+@media screen and (max-width: 1080px) and (min-width: 635px) {
+  .movies-card-list__null-result {
+    max-width: calc(100% - 60px);
+  }
+}
+
+@media screen and (max-width: 634px) {
+  .movies-card-list__null-result {
+    max-width: calc(100% - 28px);
+    font-size: 16px;
+  }
 }
 
 .movies-card-list__more-button {
